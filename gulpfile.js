@@ -132,7 +132,3 @@ gulp.task('watch', ['connect', 'serve'], function () {
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
 });
-
-gulp.task('cloud-build', ['clean'], function () {
-    gulp.start(['scripts', 'images', 'fonts', 'extras']);
-});
