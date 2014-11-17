@@ -66,28 +66,11 @@ gulp.task('extras', function () {
         .pipe(gulp.dest('dist'));
 });
 
-// creates a server-ready version of the package.json file
-gulp.task('package', function() {
-	var fs = require('fs');
-    var pkg = require('./package.json');
-
-	// if the directory doesn't exist, create it.
-	if(!fs.existsSync('./dist')) {
-		fs.mkdirSync('dist', '0755');
-	}
-
-    pkg.main = 'package.json';
-    delete pkg.devDependencies;
-    delete pkg.scripts;
-
-    fs.writeFileSync('dist/package.json', JSON.stringify(pkg));
-});
-
 gulp.task('clean', function () {
     return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'extras', 'package']);
+gulp.task('build', ['html', 'images', 'fonts', 'extras']);
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
