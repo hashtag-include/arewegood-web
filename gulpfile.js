@@ -23,16 +23,15 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('views', function () {
-    return gulp.src(['app/views/*.jade', '!app/views/layout.jade'])
-        .pipe($.jade({pretty: true}))
-        .pipe(gulp.dest('.tmp'));
+    return gulp.src(['app/views/**/*.jade'])
+        .pipe(gulp.dest('.tmp/views'));
 });
 
 gulp.task('html', ['views', 'styles', 'scripts'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 
-    return gulp.src('.tmp/*.html')
+    return gulp.src('.tmp/views/**/*.jade')
         .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
         .pipe(jsFilter)
         .pipe($.uglify())
@@ -42,7 +41,7 @@ gulp.task('html', ['views', 'styles', 'scripts'], function () {
         .pipe(cssFilter.restore())
         .pipe($.useref.restore())
         .pipe($.useref())
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('dist/views'))
         .pipe($.size());
 });
 
@@ -131,7 +130,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
     // watch for changes
 
     gulp.watch([
-        '.tmp/*.html',
+        '.tmp/views/**/*.jade',
         '.tmp/styles/**/*.css',
         'app/scripts/**/*.js',
         'app/images/**/*'
@@ -142,7 +141,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/images/**/*', ['images']);
-    gulp.watch('app/views/**/*', ['views']);
-    gulp.watch('app/routes/**/*', ['routes']);
+    gulp.watch('app/views/**/*.jade', ['views']);
+    gulp.watch('app/routes/**/*.js', ['routes']);
     gulp.watch('bower.json', ['wiredep']);
 });
