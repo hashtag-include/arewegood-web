@@ -14,7 +14,6 @@
   "devDependencies": {
     "gulp": "^3.6.0",
     "gulp-autoprefixer": "^0.0.7",
-    "gulp-bower-files": "^0.2.1",
     "gulp-cache": "^0.1.1",
     "gulp-clean": "^0.2.4",
     "gulp-concat": "^2.4.3",
