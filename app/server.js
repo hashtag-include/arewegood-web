@@ -11,8 +11,7 @@ var users = require('./routes/users');
 var server = express();
 
 // config loading - this will later be replaced with conar and hulksmash will be removed
-var config = require('../config');
-config = process.env.NODE_ENV === 'development' ? config.development : config.production;
+var config = require('../config')[process.env.NODE_ENV === 'development' ? 'development' : 'production'];
 
 // view engine setup
 server.set('views', path.join(__dirname, 'views'));

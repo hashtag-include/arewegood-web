@@ -3,8 +3,7 @@ var debug = require('debug')('test');
 var app = require('../.build/server');
 
 // config loading - this will later be replaced with conar and hulksmash will be removed
-var config = require('../config');
-config = process.env.NODE_ENV === 'development' ? config.development : config.production;
+var config = require('../config')[process.env.NODE_ENV === 'development' ? 'development' : 'production'];
 
 app.set('port', process.env.PORT || config.environment.port);
 
