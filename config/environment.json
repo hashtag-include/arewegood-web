@@ -1,0 +1,14 @@
+{
+    "development": {
+    	"environment": {
+	        "domain": "http://localhost:3000",
+	        "port": 3000
+    	}
+    },
+    "production": {
+    	"environment": {
+        	"domain": "https://arewegood.azurewebsites.net",
+        	"port": 80
+        }
+    }
+}

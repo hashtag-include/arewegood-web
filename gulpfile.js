@@ -3,6 +3,9 @@ var gulp = require('gulp');
 var merge = require('merge-stream');
 var nodemon = require('gulp-nodemon');
 
+// config loading - this will later be replaced with conar and hulksmash will be removed
+var config = require('./config').development;
+
 // load plugins
 var $ = require('gulp-load-plugins')();
 
@@ -92,7 +95,7 @@ gulp.task('connect', function () {
 
 gulp.task('serve', ['default'], function () {
     gulp.start('connect');
-    require('opn')('http://localhost:3000');
+    require('opn')(config.environment.domain);
 });
 
 gulp.task('watch', ['serve'], function () {

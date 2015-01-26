@@ -4,6 +4,7 @@ dist
 .sass-cache
 bower_components
 .build
+config/database.json
 
 *.cache
 npm-debug.log

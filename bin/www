@@ -2,7 +2,11 @@
 var debug = require('debug')('test');
 var app = require('../.build/server');
 
-app.set('port', process.env.PORT || 3000);
+// config loading - this will later be replaced with conar and hulksmash will be removed
+var config = require('../config');
+config = process.env.NODE_ENV === 'development' ? config.development : config.production;
+
+app.set('port', process.env.PORT || config.environment.port);
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
