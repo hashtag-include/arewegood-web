@@ -4,30 +4,39 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require('connect-flash');
+var session = require('express-session');
 
 var server = express();
 
-// config loading - this will later be replaced with conar and hulksmash will be removed
-var config = require('../config')[process.env.NODE_ENV === 'development' ? 'development' : 'production'];
+// configuration ===============================================================
+var config = require('../config')[process.env.NODE_ENV === 'development' ? 'development' : 'production']; // TODO: replace with conar and will be removed
+mongoose.connect(config.database.connect); // connect to our database
+require('./helpers/passport')(passport);
 
 // view engine setup
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//server.use(favicon(__dirname + '/public/favicon.ico'));
+// required for passport
+server.use(session({ secret: config.session.secret })); // session secret
+server.use(passport.initialize());
+server.use(passport.session()); // persistent login sessions
+server.use(flash()); // use connect-flash for flash messages stored in session
+
+server.use(favicon(__dirname + '/public/favicon.ico'));
 server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
-server.use('/', routes);
-server.use('/users', users);
+// routes ======================================================================
+require('./routes')(server, passport); // load our routes and pass in our app and fully configured passport
 
+// launch ======================================================================
 // catch 404 and forward to error handler
 server.use(function(req, res, next) {
     var err = new Error('Not Found');

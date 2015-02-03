@@ -1,29 +1,34 @@
 doctype html
-html.no-js
+html
     head
         meta(charset='utf-8')
         title arewegood
         meta(name='description' content='')
         meta(name='viewport' content='width=device-width, initial-scale=1')
 
+        link(rel='stylesheet' href='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/css/bootstrap.min.css')
+        link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
         link(rel='stylesheet' href='styles/main.css')
-
-    body 
-        | <!--[if lt IE 10]>
-        |     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        | <![endif]-->
-
+    body
         .container
             .header
-                h3.text-muted arewegood
-
-            .jumbotron
-                h1 Hello!
-                p.lead Everything seems to be working properly
+                img(class="mark", src="/images/arewegood_header_mark.png")/
+                img(class="logo", src="/images/arewegood_header_logo.png")/
+                if !user || !user._id
+                    a(href="/login")
+                        button().
+                            Sign In
+                else
+                    a(href="/logout")
+                        button().
+                            Sign Out
 
             block content
 
             .footer
-                p Made with ♥ by the hashtag include team
+                p Made with ♥ by the hashtag-include team
 
+        script(src='//ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js')
+        script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
+        script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')
         script(src='scripts/main.js')

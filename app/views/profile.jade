@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    h4 API Key
+    div #{user.id}
+
+    h4 Application Logs
+    table.logs
+        thead
+            tr
+                th Type
+                th Data
+                th Created
+        for log in logs
+            tr
+                td.type #{log.type}
+                td.data #{log.data}
+                td.createdAt #{log.createdAt}
