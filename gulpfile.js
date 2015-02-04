@@ -39,10 +39,10 @@ gulp.task('views', function () {
 });
 
 gulp.task('routes', function () {
-    return gulp.src(['app/routes/**/*.js'])
+    return gulp.src(['app/routes.js'])
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
-        .pipe(gulp.dest('.build/routes'));
+        .pipe(gulp.dest('.build'));
 });
 
 gulp.task('models', function () {
@@ -119,9 +119,9 @@ gulp.task('watch', ['serve'], function () {
     gulp.watch('app/public/images/**/*', ['images']);
     gulp.watch('app/public/fonts/**/*', ['fonts']);
     gulp.watch('app/views/**/*.jade', ['views']);
-    gulp.watch('app/routes/**/*.js', ['routes']);
+    gulp.watch('app/routes.js', ['routes']);
     gulp.watch('app/models/**/*.js', ['models']);
     gulp.watch('app/helpers/**/*.js', ['helpers']);
 
-    gulp.watch(['.build/views/**/*.jade', '.build/routes/**/*.js', '.build/models/**/*.js', '.build/helpers/**/*.js'], ['connect']);
+    gulp.watch(['.build/views/**/*.jade', '.build/routes.js', '.build/models/**/*.js', '.build/helpers/**/*.js'], ['connect']);
 });

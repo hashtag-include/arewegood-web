@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash = require('connect-flash');
 var session = require('express-session');
 
 var server = express();
@@ -24,7 +23,6 @@ server.set('view engine', 'jade');
 server.use(session({ secret: config.session.secret })); // session secret
 server.use(passport.initialize());
 server.use(passport.session()); // persistent login sessions
-server.use(flash()); // use connect-flash for flash messages stored in session
 
 server.use(favicon(__dirname + '/public/favicon.ico'));
 server.use(logger('dev'));

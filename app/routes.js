@@ -1,5 +1,6 @@
 'use strict';
-var Log = require('../models/log');
+
+var Log = require('./models/log');
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
@@ -37,7 +38,7 @@ module.exports = function(server, passport) {
         res.redirect('/');
     });
 
-    // logs ======================================================================
+    // logs api ======================================================================
     server.post('/logs', function(req, res) {
         var userId = req.body.userId;
 
