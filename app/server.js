@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var subdomain = require('express-subdomain');
 
 var server = express();
 
@@ -32,7 +33,8 @@ server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
 // routes ======================================================================
-require('./routes')(server, passport); // load our routes and pass in our app and fully configured passport
+server.use(subdomain('api', require('./routes/api'))); // load our api routes and configure them to use the api subdomain
+server.use(require('./routes/main')(passport)); // load our main routes and pass in our fully configured passport
 
 // launch ======================================================================
 // catch 404 and forward to error handler

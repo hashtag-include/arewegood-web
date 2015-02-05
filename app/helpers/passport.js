@@ -1,7 +1,7 @@
 'use strict';
 var GitHubStrategy = require('passport-github').Strategy;
-var User = require('../models/user');
 
+var User = require('../models/user');
 var config = require('../../config')[process.env.NODE_ENV === 'development' ? 'development' : 'production']; // TODO: replace with conar and will be removed
 
 // expose this function to our app using module.exports
@@ -37,7 +37,7 @@ module.exports = function(passport) {
                     newUser.username = profile.login;
                     newUser.email = profile.email;
                     newUser.name = profile.name;
-                    newUser.avatarUrl = profile.avatar_url;
+                    newUser.avatar = profile.avatar_url; // jshint ignore:line
 
                     // save the user
                     newUser.save(function(err) {
