@@ -7,7 +7,7 @@
     },
     "production": {
     	"environment": {
-        	"domain": "https://arewegood.azurewebsites.net",
+        	"domain": "https://arewegood.io",
         	"port": 80
         }
     }

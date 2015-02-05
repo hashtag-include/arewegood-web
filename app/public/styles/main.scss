@@ -1,8 +1,11 @@
+/* Constants */
+$font-stack: Helvetica, Arial, sans-serif;
+
 /* Fonts */
 @import url(http://fonts.googleapis.com/css?family=Comfortaa);
 
 body {
-    font-family: Helvetica, Arial, Sans-Serif;
+    font-family: $font-stack;
 
     .container {
         .header {

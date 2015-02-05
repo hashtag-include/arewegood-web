@@ -10,14 +10,14 @@ var config = require('./config').development;
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
-    return gulp.src('app/public/styles/main.scss')
+    return gulp.src('app/public/styles/**/*.scss')
         .pipe($.rubySass({
             style: 'expanded',
             precision: 10
         }))
         .pipe($.autoprefixer('last 1 version'))
         .pipe($.csso())
-        .pipe($.concat('main.css'))
+        .pipe($.concat('arewegood.min.css'))
         .pipe(gulp.dest('.build/public/styles'))
         .pipe($.size());
 });
@@ -27,7 +27,7 @@ gulp.task('scripts', function () {
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
         .pipe($.uglify())
-        .pipe($.concat('main.js'))
+        .pipe($.concat('arewegood.min.js'))
         .pipe(gulp.dest('.build/public/scripts'))
         .pipe($.size());
 });
