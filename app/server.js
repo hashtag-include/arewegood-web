@@ -12,7 +12,7 @@ var server = express();
 
 // configuration ===============================================================
 var config = require('../config');
-mongoose.connect(config.database.connect); // connect to our database
+mongoose.connect(config.authentication.database.connect); // connect to our database
 require('./helpers/passport')(passport);
 
 // view engine setup
@@ -20,7 +20,7 @@ server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'jade');
 
 // required for passport
-server.use(session({ secret: config.session.secret })); // session secret
+server.use(session({ secret: config.authentication.session.secret })); // session secret
 server.use(passport.initialize());
 server.use(passport.session()); // persistent login sessions
 
