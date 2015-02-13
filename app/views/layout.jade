@@ -12,8 +12,9 @@ html
     body
         .container
             .header
-                img(class="mark", src="/images/arewegood_header_mark.png")/
-                img(class="logo", src="/images/arewegood_header_logo.png")/
+                a(href="/")
+                    img(class="mark", src="/images/arewegood_header_mark.png")/
+                    img(class="logo", src="/images/arewegood_header_logo.png")/
                 if !user || !user._id
                     a(href="/login")
                         button().
@@ -29,6 +30,6 @@ html
                 p Made with ♥ by the hashtag-include team
 
         block scripts
-            script(src='//ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js')
+            script(src='//ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js')
             script(src='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/bootstrap.min.js')
         script(src='scripts/arewegood.min.js')
