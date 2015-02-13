@@ -5,6 +5,6 @@ var http = require('http');
 var app = require('../.build/server');
 var config = require('../config');
 
-var server = http.createServer(app).listen(config.environment.port, function() {
+var server = http.createServer(app).listen(process.env.PORT || config.environment.port, function() {
     debug('Express server listening on port ' + server.address().port);
 });
