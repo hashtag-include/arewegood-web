@@ -5,15 +5,8 @@ var router = express.Router();
 
 var Log = require('../models/log');
 
-function isSecure(req, res, next) {
-    if (req.headers['x-forwarded-proto'] === 'https' || req.headers['x-arr-ssl'] || process.env.NODE_ENV === 'development'){
-        return next();
-    }
-    res.redirect('https://' + req.headers.host + req.url);
-}
-
 // logs ======================================================================
-router.post('/logs', isSecure, function(req, res) {
+router.post('/logs', function(req, res) {
     var userId = req.body.userId;
 
     req.body.logs.forEach(function(log) {
@@ -33,13 +26,13 @@ router.post('/logs', isSecure, function(req, res) {
     res.send(200);
 });
 
-router.get('/logs', isSecure, function(req, res) {
+router.get('/logs', function(req, res) {
     Log.find({ 'userId': req.query.userId }, function (err, logs) {
         res.send(logs);
     });
 });
 
-router.get('/', isSecure, function(req, res) {
+router.get('/', function(req, res) {
     res.send('Welcome to our API!');
 });
 
