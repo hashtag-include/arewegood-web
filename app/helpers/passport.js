@@ -2,7 +2,7 @@
 var GitHubStrategy = require('passport-github').Strategy;
 
 var User = require('../models/user');
-var config = require('../../config')[process.env.NODE_ENV === 'development' ? 'development' : 'production']; // TODO: replace with conar and will be removed
+var config = require('../../config');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {

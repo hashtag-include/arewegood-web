@@ -7,12 +7,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
-var subdomain = require('express-subdomain');
 
 var server = express();
 
 // configuration ===============================================================
-var config = require('../config')[process.env.NODE_ENV === 'development' ? 'development' : 'production']; // TODO: replace with conar and will be removed
+var config = require('../config');
 mongoose.connect(config.database.connect); // connect to our database
 require('./helpers/passport')(passport);
 
@@ -33,7 +32,6 @@ server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
 // routes ======================================================================
-server.use(subdomain('api', require('./routes/api'))); // load our api routes and configure them to use the api subdomain
 server.use(require('./routes/main')(passport)); // load our main routes and pass in our fully configured passport
 
 // launch ======================================================================
