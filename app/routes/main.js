@@ -13,12 +13,19 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
+function isSecure(req, res, next) {
+    if (req.headers['x-forwarded-proto'] === 'https' || req.headers['x-arr-ssl'] || process.env.NODE_ENV === 'development'){
+        return next();
+    }
+    res.redirect('https://' + req.headers.host + req.url);
+}
+
 module.exports = function(passport) {
-    router.get('/', function(req, res) {
+    router.get('/', isSecure, function(req, res) {
         res.render('index');
     });
 
-    router.get('/login', passport.authenticate('github'), function() {
+    router.get('/login', isSecure, passport.authenticate('github'), function() {
         // The request will be redirected to GitHub for authentication, so this function will not be called.
     });
 
@@ -26,7 +33,7 @@ module.exports = function(passport) {
         res.redirect('/profile');
     });
 
-    router.get('/profile', isLoggedIn, function(req, res) {
+    router.get('/profile', isSecure, isLoggedIn, function(req, res) {
         Log.find({ 'userId': req.user.id }, function (err, logs) {  // TODO: ajax this in instead of loading server-side
             res.render('profile', {
                 user: req.user,
@@ -36,7 +43,7 @@ module.exports = function(passport) {
         
     });
 
-    router.get('/logout', function(req, res) {
+    router.get('/logout', isSecure, function(req, res) {
         req.logout();
         res.redirect('/');
     });
