@@ -1,8 +1,14 @@
-var http = require('http');
+var https = require('https');
 var fs = require('fs');
 
-var port = process.env.PORT || 80;
-http.createServer(function (req, res) {
+var config = require('../config');
+
+var options = {
+    pfx: fs.readFileSync(config.authentication.certificate.pfx),
+    passphrase: config.authentication.certificate.passphrase
+};
+var port = process.env.PORT || 8000;
+https.createServer(options, function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello World\n');
 }).listen(port);
