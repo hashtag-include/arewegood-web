@@ -110,7 +110,7 @@ gulp.task('connect', function () {
 
 gulp.task('serve', ['default'], function () {
     gulp.start('connect');
-    require('opn')("http://" + config.environment.domain + ":" + config.environment.port.http, 'chrome');
+    require('opn')("http://" + config.environment.domain + ":" + config.environment.port, 'chrome');
 });
 
 gulp.task('watch', ['serve'], function () {
