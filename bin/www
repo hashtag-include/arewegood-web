@@ -1,23 +1,8 @@
-#!/usr/bin/env node
-var debug = require('debug')('test');
 var http = require('http');
-var https = require('https');
 var fs = require('fs');
 
-var app = require('../.build/server');
-var config = require('../config');
-
-var httpServer = http.createServer(app).listen(config.environment.port.http, function() {
-    debug('Express HTTP server listening on port ' + httpServer.address().port);
-});
-
-if(config.environment.enableSsl) {
-    var credentials = {
-        pfx: fs.readFileSync(config.authentication.certificate.pfx),
-        passphrase: config.authentication.certificate.passphrase
-    };
-
-    var httpsServer = https.createServer(credentials, app).listen(config.environment.port.https, function() {
-        debug('Express HTTPS server listening on port ' + httpsServer.address().port);
-    });
-}
+var port = process.env.PORT || 80;
+http.createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello World\n');
+}).listen(port);
