@@ -32,19 +32,21 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
-// routes ======================================================================
-server.use(subdomain('api', require('./routes/api'))); // load our api routes and configure them to use the api subdomain
-server.use(require('./routes/main')(passport)); // load our main routes and pass in our fully configured passport
+// force all requests to be https
+server.use(function(req, res, next) {
+    if (!req.secure) {
+        return res.redirect('https://' + req.get('host') + req.url);
+    }
+    next();
+});
 
-// launch ======================================================================
+// error handlers ======================================================================
 // catch 404 and forward to error handler
 server.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace
@@ -67,6 +69,10 @@ server.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+// routes ======================================================================
+server.use(subdomain('api', require('./routes/api'))); // load our api routes and configure them to use the api subdomain
+server.use(require('./routes/main')(passport)); // load our main routes and pass in our fully configured passport
 
 
 module.exports = server;
