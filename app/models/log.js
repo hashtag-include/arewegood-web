@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var logSchema = mongoose.Schema({
-    userId: String,
     type: String,
     data: String,
+    account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
     createdAt: { type: Date, default: Date.now }
 });
 

@@ -1,17 +1,18 @@
 'use strict';
 var GitHubStrategy = require('passport-github').Strategy;
+var request = require('request');
 
 var User = require('../models/user');
+var Account = require('../models/account');
 var config = require('../../config');
 
-// expose this function to our app using module.exports
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
 
     passport.deserializeUser(function(user, done) {
-        User.findOne({ 'id':  user.id }, function(err, user) {
+        User.findById(user._id, function(err, user) {
             done(err, user);
         });
     });
@@ -19,36 +20,63 @@ module.exports = function(passport) {
     passport.use(new GitHubStrategy({
         clientID: config.authentication.github.clientId,
         clientSecret: config.authentication.github.clientSecret,
-        callbackURL: '/login/callback'
+        scope: 'repo, user'
     },
-    function(accessToken, refreshToken, profile, done) {
-        process.nextTick(function () {
-            User.findOne({ 'id':  profile.id }, function(err, user) {
-                if (err) {
-                    return done(err);
-                }
+    function(accessToken, refreshToken, githubProfile, done) {
+        User.findOne({ 'githubId': githubProfile.id }, function(err, user) {
+            if (err) return handleError(err);
 
-                if (user) {
-                    return done(null, user);
-                } else {
-                    var newUser = new User();
+            if (user) {
+                return done(null, user);
+            } else {
+                var newAccount = new Account({
+                    name: 'hashtag-include'
+                });
 
-                    newUser.id = profile.id;
-                    newUser.username = profile.login;
-                    newUser.email = profile.email;
-                    newUser.name = profile.name;
-                    newUser.avatar = profile.avatar_url; // jshint ignore:line
+                // save the user
+                newAccount.save(function(err) {
+                    if (err) return handleError(err);
 
-                    // save the user
-                    newUser.save(function(err) {
-                        if (err) {
-                            throw err;
+                    var newUser = new User({
+                        githubId: githubProfile.id,
+                        username: githubProfile._json.login,
+                        name: githubProfile._json.name,
+                        avatar: githubProfile._json.avatar_url, // jshint ignore:line
+                        account: newAccount._id
+                    });
+
+                    // retrieve the user's email address
+                    var requestOptions = {
+                        url: 'https://api.github.com/user/emails?access_token=' + accessToken,
+                        headers: {
+                            'User-Agent': 'hashtag-include'
+                        }
+                    };
+                    request(requestOptions, function (err, res, body) {
+                        if (!err && res.statusCode == 200) {
+                            var emails = JSON.parse(body);
+                            for(var i = 0; i < emails.length; i++) {
+                                if(emails[i]['primary']) {
+                                    newUser.email = emails[i]['email'];
+                                    break;
+                                }
+                            }
                         }
                         
-                        return done(null, newUser);
+                        newUser.save(function(err) {
+                            if (err) return handleError(err);
+
+                            newAccount.users.push(newUser);
+                            newAccount.save(function(err) {
+                                if (err) return handleError(err);
+
+                                return done(null, newUser);
+                            });
+                        });
                     });
-                }
-            });
-        }); 
+                    
+                });
+            }
+        });
     }));
 };
