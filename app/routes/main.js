@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 
+var User = require('../models/user');
+var Account = require('../models/account');
 var Log = require('../models/log');
 
 function isLoggedIn(req, res, next) {
@@ -27,13 +29,22 @@ module.exports = function(passport) {
     });
 
     router.get('/profile', isLoggedIn, function(req, res) {
-        Log.find({ 'userId': req.user.id }, function (err, logs) {  // TODO: ajax this in instead of loading server-side
-            res.render('profile', {
-                user: req.user,
-                logs: logs
+        User.findById(req.user._id).populate('account').exec(function(err, user) {
+            if(err) {
+                return handleError(err);
+            }
+
+            Account.findById(user.account._id).populate('logs').exec(function(err, account) {
+                if(err) {
+                    return handleError(err);
+                }
+
+                user.account = account;
+                res.render('profile', {
+                    user: user,
+                });
             });
         });
-        
     });
 
     router.get('/logout', function(req, res) {

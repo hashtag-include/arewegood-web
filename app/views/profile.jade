@@ -5,7 +5,7 @@ block append styles
 
 block content
     h4 API Key
-    div #{user.id}
+    div #{user.account.key}
 
     h4 Application Logs
     table.logs
@@ -14,7 +14,7 @@ block content
                 th Type
                 th Data
                 th Created
-        for log in logs
+        for log in user.account.logs
             tr
                 td.type #{log.type}
                 td.data #{log.data}
