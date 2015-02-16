@@ -18,11 +18,11 @@ module.exports = function(passport) {
         res.render('index');
     });
 
-    router.get('/login', passport.authenticate('github'), function() {
+    router.get('/login', passport.authenticate('github', { session: true }), function() {
         // The request will be redirected to GitHub for authentication, so this function will not be called.
     });
 
-    router.get('/login/callback', passport.authenticate('github', { failureRedirect: '/' }), function(req, res) {
+    router.get('/login/callback', passport.authenticate('github', { failureRedirect: '/', session: true }), function(req, res) {
         res.redirect('/profile');
     });
 

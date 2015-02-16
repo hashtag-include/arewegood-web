@@ -1,6 +1,8 @@
 'use strict';
-var GitHubStrategy = require('passport-github').Strategy;
+
 var request = require('request');
+var GitHubStrategy = require('passport-github').Strategy;
+var BearerStrategy = require('passport-http-bearer').Strategy;
 
 var User = require('../models/user');
 var Account = require('../models/account');
@@ -24,7 +26,9 @@ module.exports = function(passport) {
     },
     function(accessToken, refreshToken, githubProfile, done) {
         User.findOne({ 'githubId': githubProfile.id }, function(err, user) {
-            if (err) return handleError(err);
+            if (err) {
+                return handleError(err);
+            }
 
             if (user) {
                 return done(null, user);
@@ -35,7 +39,9 @@ module.exports = function(passport) {
 
                 // save the user
                 newAccount.save(function(err) {
-                    if (err) return handleError(err);
+                    if (err) {
+                        return handleError(err);
+                    }
 
                     var newUser = new User({
                         githubId: githubProfile.id,
@@ -64,11 +70,15 @@ module.exports = function(passport) {
                         }
                         
                         newUser.save(function(err) {
-                            if (err) return handleError(err);
+                            if (err) {
+                                return handleError(err);
+                            }
 
                             newAccount.users.push(newUser);
                             newAccount.save(function(err) {
-                                if (err) return handleError(err);
+                                if (err) {
+                                    return handleError(err);
+                                }
 
                                 return done(null, newUser);
                             });
@@ -79,4 +89,20 @@ module.exports = function(passport) {
             }
         });
     }));
+
+    passport.use(new BearerStrategy(
+        function(key, done) {
+            Account.findOne({ key: key }, function (err, account) {
+                if (err) {
+                    return done(err);
+                }
+
+                if (!account) {
+                    return done(null, false);
+                }
+
+                return done(null, account, { scope: 'all' });
+            });
+        }
+    )); 
 };

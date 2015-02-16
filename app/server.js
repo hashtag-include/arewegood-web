@@ -41,7 +41,7 @@ server.use(function(req, res, next) {
 });
 
 // routes ======================================================================
-server.use(subdomain('api', require('./routes/api'))); // load our api routes and configure them to use the api subdomain
+server.use(subdomain('api', require('./routes/api')(passport))); // load our api routes and configure them to use the api subdomain
 server.use(require('./routes/main')(passport)); // load our main routes and pass in our fully configured passport
 
 // error handlers ======================================================================
