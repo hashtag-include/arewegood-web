@@ -1,13 +1,13 @@
 {
     "development": {
-    	"environment": {
+        "environment": {
             "domain": "arewegood.local",
             "enableSsl": false,
             "port": 3000
-    	}
+        }
     },
     "production": {
-    	"environment": {
+        "environment": {
             "domain": "arewegood.io",
             "enableSsl": true,
             "port": 80

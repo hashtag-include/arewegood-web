@@ -1,0 +1,25 @@
+extends layout
+
+block append styles
+    link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
+
+block content
+    h4 API Key
+    div #{user.account.key}
+
+    h4 Application Logs
+    table.logs
+        thead
+            tr
+                th Type
+                th Data
+                th Created
+        for log in user.account.logs
+            tr
+                td.type #{log.type}
+                td.data #{log.data}
+                td.createdAt #{log.createdAt}
+
+block append scripts
+    script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
+    script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')

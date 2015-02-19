@@ -3,69 +3,82 @@
 var express = require('express');
 var router = express.Router();
 
-var Account = require('../models/account');
+var Repository = require('../models/repository');
 var Log = require('../models/log');
+var middleware = require('../helpers/middleware');
+var SimpleResponse = require('../helpers/misc').SimpleResponse;
 
 module.exports = function(passport) {
     // logs ======================================================================
-    router.post('/logs/', passport.authenticate('bearer', { session: false }), function(req, res) {
-        // force application/json content-type
-        if(req.headers["content-type"] !== 'application/json') {
-            return res.status(400).send('Error: content-type must be application/json');
-        }
-
+    router.post('/logs/', passport.authenticate('bearer', { session: false }), middleware.forceJSON, function(req, res) {
+        // make sure logs are present in the request
         if(!req.body.logs) {
-            return res.status(400).send('Error: invalid body content');
+            return res.status(400).json(new SimpleResponse('error', 'invalid body content'));
         }
 
-        Account.findOne({ 'key': req.user.key }, function(err, account) {
+        // look up the repository by api key
+        Repository.findOne({ 'key': req.user.key }, function(err, repository) {
             if(err) {
-                return res.status(500).send(err);
+                return res.status(500).json(new SimpleResponse('error', err));
             }
 
+            // iterate over each log in the request
             req.body.logs.forEach(function(log) {
+                // create a new log using the repository id
                 var newLog = new Log({
-                    type: log.type,
+                    type: log.type.toLowerCase(),
                     data: JSON.stringify(log.data),
-                    account: account._id
+                    repository: repository._id
                 });
 
+                // validate that each log has both type and data
                 if(!newLog.type || !newLog.data) {
-                    return res.status(400).send('Error: invalid body content');
+                    return res.status(400).json(new SimpleResponse('error', 'invalid body content'));
                 }
 
+                // save the new log in the DB
                 newLog.save(function(err) {
                     if (err) {
-                        return res.status(500).send(err);
+                        return res.status(500).json(new SimpleResponse('error', err));
                     }
 
-                    account.logs.push(newLog);
-
-                    account.save(function(err) {
-                        if (err) {
-                            return handleError(err);
-                        }
-
-                        res.send(200);
-                    });
+                    // add the id of the new log as a reference in the repository
+                    repository.logs.push(newLog);
                 });
+            });
+
+            // save the updated repository
+            repository.save(function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+
+                res.send(200);
             });
         });
     });
 
     router.get('/logs', passport.authenticate('bearer', { session: false }), function(req, res) {
-        Account.findOne({ 'key': req.user.key }).populate('logs').exec(function(err, account) {
+        // look up the repository by api key and populate the logs
+        Repository.findOne({ 'key': req.user.key }).populate('logs').exec(function(err, repository) {
             if(err) {
-                return handleError(err);
+                return res.status(500).json(new SimpleResponse('error', err));
             }
 
-            res.send(account.logs);
+            res.json(repository.logs);
         });
     });
 
-    router.get('/', passport.authenticate('bearer', { session: false }), function(req, res) {
-        res.send('Welcome to our API!');
+    // repos ======================================================================
+    router.get('/repos', function(req, res) {
+        res.header('Access-Control-Allow-Origin', 'http://arewegood.local:3000');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        res.header('Access-Control-Allow-Credentials', true);
+
+        console.log(req.user);
+
+        res.send('hello world');
     });
 
     return router;
-}
+};

@@ -32,7 +32,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
-// force all routes to use ssl
+// force all routes to use ssl unless in dev environment
 server.use(function(req, res, next) {
     if (req.headers['x-forwarded-proto'] === 'https' || req.headers['x-arr-ssl'] || req.secure || process.env.NODE_ENV === 'development'){
         return next();

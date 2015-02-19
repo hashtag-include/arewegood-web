@@ -6,9 +6,13 @@ html
         meta(name='description' content='arewegood is a realtime error handling and uptime platform for web services and apps that matter to you.')
         meta(name='viewport' content='width=device-width, initial-scale=1')
 
-        block styles
+        block extStyles
             link(rel='stylesheet' href='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/css/bootstrap.min.css')
-        link(rel='stylesheet' href='/styles/arewegood.min.css')
+            link(rel='stylesheet' href='//code.jquery.com/ui/1.11.3/themes/flick/jquery-ui.css')
+
+        block intStyles
+            link(rel='stylesheet' href='/styles/arewegood.min.css')
+
     body
         .container
             .header
@@ -29,7 +33,10 @@ html
             .footer
                 p Made with ♥ by the hashtag-include team
 
-        block scripts
+        block extScripts
             script(src='//ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js')
+            script(src='//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.3/jquery-ui.min.js')
             script(src='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/bootstrap.min.js')
-        script(src='/scripts/arewegood.min.js')
+
+        block intScripts
+            script(src='/scripts/arewegood.min.js')

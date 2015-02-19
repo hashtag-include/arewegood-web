@@ -1,25 +1,15 @@
 extends layout
 
-block append styles
-    link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
-
 block content
-    h4 API Key
-    div #{user.account.key}
+    h4 Add Repository
+    div.addRepository
 
-    h4 Application Logs
-    table.logs
-        thead
+    h4 Repositories
+    table.repositories
+        for repository in user.repositories
             tr
-                th Type
-                th Data
-                th Created
-        for log in user.account.logs
-            tr
-                td.type #{log.type}
-                td.data #{log.data}
-                td.createdAt #{log.createdAt}
+                td.name #{repository.fullName}
 
-block append scripts
-    script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
-    script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')
+block append intScripts
+    script.
+        new TrackRepository(!{availableRepositories}, 'div.addRepository').init();

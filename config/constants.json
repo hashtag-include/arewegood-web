@@ -1,0 +1,13 @@
+{
+    "both": {
+        "constants": {
+            "github": {
+                "api": {
+                    "email": "https://api.github.com/user/emails",
+                    "repos": "https://api.github.com/user/repos",
+                    "scope": "repo, user"
+                }
+            }
+        }
+    }
+}
