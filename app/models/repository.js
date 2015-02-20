@@ -1,51 +1,53 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var uuid = require('node-uuid');
 
 // validates that a value is not null, undefined, or an empty string
 function isNotEmpty(value) {
     return (value !== null && typeof(value) !== 'undefined' && value.length !== 0);
 }
 
-var userSchema = mongoose.Schema({
-    githubToken: {
-        type: String,
-        required: true,
-        validate: [isNotEmpty, 'githubToken required']
-    },
+var repositorySchema = mongoose.Schema({
     githubId: {
         type: String,
         required: true,
-        unique: true,
         validate: [isNotEmpty, 'githubId required']
     },
-    username: {
+    fullName: {
         type: String,
         required: true,
-        unique: true,
-        validate: [isNotEmpty, 'username required']
+        validate: [isNotEmpty, 'fullName required']
     },
-    email: {
+    owner: {
         type: String,
         required: true,
-        validate: [isNotEmpty, 'email required']
+        validate: [isNotEmpty, 'owner required']
     },
     name: {
         type: String,
         required: true,
         validate: [isNotEmpty, 'name required']
     },
-    avatar: {
-        type: String
+    key: {
+        type: String,
+        unique: true,
+        default: function () {
+            return uuid.v4().replace(/-/g, '');
+        }
     },
-    repositories: [{
+    users: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Repository'
+        ref: 'User'
+    }],
+    logs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Log'
     }],
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Repository', repositorySchema);

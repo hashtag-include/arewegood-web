@@ -32,7 +32,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
-// force all routes to use ssl
+// force all routes to use ssl unless in dev environment
 server.use(function(req, res, next) {
     if (req.headers['x-forwarded-proto'] === 'https' || req.headers['x-arr-ssl'] || req.secure || process.env.NODE_ENV === 'development'){
         return next();
@@ -41,7 +41,7 @@ server.use(function(req, res, next) {
 });
 
 // routes ======================================================================
-server.use(subdomain('api', require('./routes/api'))); // load our api routes and configure them to use the api subdomain
+server.use(subdomain('api', require('./routes/api')(passport))); // load our api routes and configure them to use the api subdomain
 server.use(require('./routes/main')(passport)); // load our main routes and pass in our fully configured passport
 
 // error handlers ======================================================================

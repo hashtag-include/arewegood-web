@@ -1,0 +1,32 @@
+extends layout
+
+//- literally all of this is going to be thrown out after the demo
+
+block append extStyles
+    link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
+
+block content
+    .content
+        h4 API Key
+        div.key #{repository.key}
+
+        h4 Application Logs
+        table.logs
+            thead
+                tr
+                    th Type
+                    th Data
+                    th Created
+            for log in repository.logs
+                tr
+                    td.type #{log.type}
+                    td.data #{log.data}
+                    td.createdAt #{log.createdAt}
+
+block append extScripts
+    script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
+    script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')
+
+block append intScripts
+    script.
+        new TableView('.container table.logs').init();
