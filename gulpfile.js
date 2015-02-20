@@ -110,7 +110,10 @@ gulp.task('connect', function () {
 
 gulp.task('serve', ['default'], function () {
     gulp.start('connect');
-    require('opn')(config.environment.fullUrl, 'chrome');
+    // open the browser too soon and you'll hit the page before connect can run (hardcode ftw)
+    setTimeout(function() {
+        require('opn')(config.environment.fullUrl, 'chrome');
+    }, 2000);
 });
 
 gulp.task('watch', ['serve'], function () {
@@ -124,5 +127,5 @@ gulp.task('watch', ['serve'], function () {
     gulp.watch('app/models/**/*.js', ['models']);
     gulp.watch('app/helpers/**/*.js', ['helpers']);
 
-    gulp.watch(['.build/views/**/*.jade', '.build/routes/**/*.js', '.build/models/**/*.js', '.build/helpers/**/*.js'], ['connect']);
+    gulp.watch(['.build/views/**/*.jade', '.build/routes/**/*.js', '.build/models/**/*.js', '.build/helpers/**/*.js']);
 });
