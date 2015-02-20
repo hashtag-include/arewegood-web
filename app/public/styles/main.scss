@@ -4,6 +4,7 @@ $font-stack: Helvetica, Arial, sans-serif;
 /* Fonts */
 @import url(//fonts.googleapis.com/css?family=Comfortaa);
 
+/* literally all of this is going to be thrown out after the demo */
 body {
     font-family: $font-stack;
 
@@ -41,24 +42,55 @@ body {
             }
         }
 
-        h1, h4 {
-            color: #16a085;
-        }
-        h4 {
-            font-size: 20px;
-            margin: 10px 0 0;
-        }
-        h4 + div {
-            margin: 5px 0 30px 20px;
-        }
+        .content {
+            min-height: 500px;
 
-        .dataTables_filter {
-            text-align: center;
+            h1, h4 {
+                color: #16a085;
+            }
+            h4 {
+                font-size: 20px;
+                margin: 20px 0 0;
+                display: inline-block;
+            }
+
+            .user, .key {
+                margin: 5px 0 30px 20px;
+
+                img {
+                    height: 150px;
+                    width: 150px;
+                    float: left;
+                }
+
+                .info {
+                    margin-left: 175px;
+
+                    p {
+                        margin: 5px;
+                        font-size: 15px;
+                    }
+                }
+            }
+
+            .dataTables_wrapper {
+                margin-top: 15px;
+            }
+
+            .repositories, .logs {
+                margin: 5px 0 30px 20px;
+                font-size: 15px;
+
+                table {
+                    margin-top: 10px;   
+                }
+
+                
+            }
         }
 
         .footer {
             color: #777;
-            margin-top: 150px;
             border-top: 1px solid #e5e5e5;
         }
     }

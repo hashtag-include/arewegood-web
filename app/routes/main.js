@@ -4,8 +4,8 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models/user');
+var Repository = require('../models/repository');
 var middleware = require('../helpers/middleware');
-
 
 module.exports = function(passport) {
     // root endpoint, renders the homepage
@@ -29,26 +29,10 @@ module.exports = function(passport) {
                 return console.log(err);
             }
 
-            // retrieve the user's email addresses
-            var github = require('../helpers/github')(req.user.githubToken);
-            github.repos.getAll({}, function(err, repositories) {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-
-                var availableRepositories = [];
-
-                // iterate through the repositories and keep track of the names
-                for(var i = 0; i < repositories.length; i++) {
-                    availableRepositories.push(repositories[i].full_name); // jshint ignore:line
-                }
-
-                // render the page with the injected content
-                res.render('profile', {
-                    user: user,
-                    availableRepositories: JSON.stringify(availableRepositories)
-                });                
-            });
+            // render the page with the injected content
+            res.render('profile', {
+                user: user
+            });   
         });
     });
 
@@ -56,6 +40,32 @@ module.exports = function(passport) {
     router.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
+    });
+
+    router.get('/:owner/:name', middleware.isLoggedIn, function(req, res) {
+        Repository.findOne({ 'owner': req.params.owner, 'name': req.params.name }).populate('logs').exec(function(err, repository) {
+            if(err) {
+                return console.log(err);
+            }
+
+            if(!repository) {
+                res.render('error', {
+                    message: 'Not Found',
+                    error: { status: 404}
+                });
+            }else if(repository.users.indexOf(req.user._id) === -1) {
+                res.render('error', {
+                    message: 'Unauthorized',
+                    error: {}
+                });
+            } else {
+                // render the page with the injected content
+                res.render('repository', {
+                    user: req.user,
+                    repository: repository
+                }); 
+            }  
+        });
     });
 
     return router;

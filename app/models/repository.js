@@ -9,20 +9,25 @@ function isNotEmpty(value) {
 }
 
 var repositorySchema = mongoose.Schema({
-    name: {
+    githubId: {
         type: String,
         required: true,
-        validate: [isNotEmpty, 'name required']
+        validate: [isNotEmpty, 'githubId required']
     },
     fullName: {
         type: String,
         required: true,
         validate: [isNotEmpty, 'fullName required']
     },
-    githubId: {
+    owner: {
         type: String,
         required: true,
-        validate: [isNotEmpty, 'githubId required']
+        validate: [isNotEmpty, 'owner required']
+    },
+    name: {
+        type: String,
+        required: true,
+        validate: [isNotEmpty, 'name required']
     },
     key: {
         type: String,

@@ -69,16 +69,5 @@ module.exports = function(passport) {
         });
     });
 
-    // repos ======================================================================
-    router.get('/repos', function(req, res) {
-        res.header('Access-Control-Allow-Origin', 'http://arewegood.local:3000');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        res.header('Access-Control-Allow-Credentials', true);
-
-        console.log(req.user);
-
-        res.send('hello world');
-    });
-
     return router;
 };
