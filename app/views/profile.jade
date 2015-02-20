@@ -1,25 +1,37 @@
 extends layout
 
-block append styles
+//- literally all of this is going to be thrown out after the demo
+
+block append extStyles
     link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
 
 block content
-    h4 API Key
-    div #{user.id}
+    .content
+        h4 Welcome!
+        div.user
+            img(src='#{user.avatar}')/
+            div.info
+                p #{user.username}
+                p #{user.name}
+                p #{user.email}
+                p #{user.githubToken}
+                p #{user.githubId}
 
-    h4 Application Logs
-    table.logs
-        thead
-            tr
-                th Type
-                th Data
-                th Created
-        for log in logs
-            tr
-                td.type #{log.type}
-                td.data #{log.data}
-                td.createdAt #{log.createdAt}
+        h4 Repositories
+        table.repositories
+            thead
+                tr
+                    th Repo
+            tbody
+                for repository in user.repositories
+                    tr
+                        td.name
+                            a(href='/#{repository.fullName}') #{repository.fullName}
 
-block append scripts
+block append extScripts
     script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
     script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')
+
+block append intScripts
+    script.
+        new TableView('.container table.repositories').init();

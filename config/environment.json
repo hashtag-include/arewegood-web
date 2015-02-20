@@ -1,13 +1,15 @@
 {
     "development": {
-    	"environment": {
+        "environment": {
+            "fullUrl": "http://arewegood.local:3000",
             "domain": "arewegood.local",
             "enableSsl": false,
             "port": 3000
-    	}
+        }
     },
     "production": {
-    	"environment": {
+        "environment": {
+            "fullUrl": "https://arewegood.io",
             "domain": "arewegood.io",
             "enableSsl": true,
             "port": 80

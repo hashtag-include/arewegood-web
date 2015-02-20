@@ -1,0 +1,9 @@
+{
+    "both": {
+        "constants": {
+            "github": {
+                "scope": "repo, user"
+            }
+        }
+    }
+}
