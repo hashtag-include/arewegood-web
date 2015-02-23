@@ -21,7 +21,7 @@ server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'jade');
 
 // required for passport
-server.use(session({ secret: config.authentication.session.secret })); // session secret
+server.use(session({ secret: config.authentication.session.secret, resave: false, saveUninitialized: false })); // session secret
 server.use(passport.initialize());
 server.use(passport.session()); // persistent login sessions
 
