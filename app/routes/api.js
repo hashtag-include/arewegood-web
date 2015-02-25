@@ -1,5 +1,6 @@
 'use strict';
 
+var Q = require('q');
 var express = require('express');
 var router = express.Router();
 
@@ -13,7 +14,7 @@ module.exports = function(passport) {
     router.post('/logs', passport.authenticate('bearer', { session: false }), middleware.forceJSON(), function(req, res) {
         // make sure logs are present in the request
         if(!req.body.logs) {
-            return res.status(400).json(new SimpleResponse('error', 'invalid body content'));
+            res.status(400).json(new SimpleResponse('error', 'invalid body content'));
         }
 
         // look up the repository by api key
@@ -22,8 +23,12 @@ module.exports = function(passport) {
                 return res.status(500).json(new SimpleResponse('error', err));
             }
 
+            var logPromises = [];
+
             // iterate over each log in the request
             req.body.logs.forEach(function(log) {
+                var deferred = Q.defer();
+
                 // create a new log using the repository id
                 var newLog = new Log({
                     type: log.type.toLowerCase(),
@@ -33,27 +38,34 @@ module.exports = function(passport) {
 
                 // validate that each log has both type and data
                 if(!newLog.type || !newLog.data) {
-                    return res.status(400).json(new SimpleResponse('error', 'invalid body content'));
+                    deferred.reject('invalid body content');
                 }
 
                 // save the new log in the DB
                 newLog.save(function(err) {
                     if (err) {
-                        return res.status(500).json(new SimpleResponse('error', err));
+                        deferred.reject(err);
                     }
 
                     // add the id of the new log as a reference in the repository
                     repository.logs.push(newLog);
+                    deferred.resolve();
                 });
+
+                logPromises.push(deferred.promise);
             });
 
-            // save the updated repository
-            repository.save(function(err) {
-                if (err) {
-                    return console.log(err);
-                }
+            Q.all(logPromises).then(function() {
+                // save the updated repository
+                repository.save(function(err) {
+                    if (err) {
+                        return console.log(err);
+                    }
 
-                res.send(200);
+                    res.status(200).end();
+                });
+            }).fail(function(err) {
+                return res.status(500).json(new SimpleResponse('error', err));
             });
         });
     });
