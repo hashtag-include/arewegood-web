@@ -9,6 +9,8 @@ var passport = require('passport');
 var session = require('express-session');
 var subdomain = require('express-subdomain');
 
+var middleware = require('./helpers/middleware');
+
 var server = express();
 
 // configuration ===============================================================
@@ -33,12 +35,7 @@ server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
 // force all routes to use ssl unless in dev environment
-server.use(function(req, res, next) {
-    if (req.headers['x-forwarded-proto'] === 'https' || req.headers['x-arr-ssl'] || req.secure || process.env.NODE_ENV === 'development'){
-        return next();
-    }
-    res.redirect('https://' + req.headers.host + req.url);
-});
+server.use(middleware.forceSSL);
 
 // routes ======================================================================
 server.use(subdomain('api', require('./routes/api')(passport))); // load our api routes and configure them to use the api subdomain

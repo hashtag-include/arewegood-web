@@ -1,16 +1,17 @@
 'use strict';
+
 var gulp = require('gulp');
 var merge = require('merge-stream');
-var nodemon = require('gulp-nodemon');
+var opn = require('opn');
+var $ = require('gulp-load-plugins')();
 
 // config loading - this will later be replaced with conar and hulksmash will be removed
 process.env.NODE_ENV = 'development';
 var config = require('./config');
 
-// load plugins
-var $ = require('gulp-load-plugins')();
 
-gulp.task('styles', function () {
+
+gulp.task('styles', function() {
     return gulp.src('app/public/styles/**/*.scss')
         .pipe($.rubySass({
             style: 'expanded',
@@ -23,7 +24,7 @@ gulp.task('styles', function () {
         .pipe($.size());
 });
 
-gulp.task('scripts', function () {
+gulp.task('scripts', function() {
     return gulp.src('app/public/scripts/**/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
@@ -33,34 +34,34 @@ gulp.task('scripts', function () {
         .pipe($.size());
 });
 
-gulp.task('views', function () {
+gulp.task('views', function() {
     return gulp.src(['app/views/**/*.jade'])
         .pipe(gulp.dest('.build/views'))
         .pipe($.size());
 });
 
-gulp.task('routes', function () {
+gulp.task('routes', function() {
     return gulp.src(['app/routes/**/*.js'])
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
         .pipe(gulp.dest('.build/routes'));
 });
 
-gulp.task('models', function () {
+gulp.task('models', function() {
     return gulp.src(['app/models/**/*.js'])
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
         .pipe(gulp.dest('.build/models'));
 });
 
-gulp.task('helpers', function () {
+gulp.task('helpers', function() {
     return gulp.src(['app/helpers/**/*.js'])
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
         .pipe(gulp.dest('.build/helpers'));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function() {
     return gulp.src('app/public/images/**/*')
         .pipe($.imagemin({
             optimizationLevel: 3,
@@ -71,7 +72,7 @@ gulp.task('images', function () {
         .pipe($.size());
 });
 
-gulp.task('fonts', function () {
+gulp.task('fonts', function() {
     return gulp.src('app/public/fonts/**/*')
         .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
         .pipe($.flatten())
@@ -79,7 +80,7 @@ gulp.task('fonts', function () {
         .pipe($.size());
 });
 
-gulp.task('extras', function () {
+gulp.task('extras', function() {
     return merge(
         gulp.src(['app/*.*'], { dot: true })
             .pipe(gulp.dest('.build')),
@@ -88,18 +89,21 @@ gulp.task('extras', function () {
     );
 });
 
-gulp.task('clean', function () {
-    return gulp.src(['.build', '.sass-cache'], { read: false }).pipe($.clean());
+gulp.task('clean', function() {
+    return gulp.src(['.build', '.sass-cache'], { read: false }).
+        pipe($.clean());
 });
 
 gulp.task('build', ['views', 'styles', 'scripts', 'images', 'fonts', 'extras', 'routes', 'models', 'helpers']);
 
-gulp.task('default', ['clean'], function () {
+gulp.task('blah', ['clean']);
+
+gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
-gulp.task('connect', function () {
-    nodemon({
+gulp.task('connect', ['default'], function() {
+    $.nodemon({
         script: './bin/www',
         env: {
             'NODE_ENV': 'development'
@@ -108,15 +112,25 @@ gulp.task('connect', function () {
     });
 });
 
-gulp.task('serve', ['default'], function () {
-    gulp.start('connect');
+gulp.task('serve', ['connect'], function() {
     // open the browser too soon and you'll hit the page before connect can run (hardcode ftw)
     setTimeout(function() {
-        require('opn')(config.environment.fullUrl, 'chrome');
-    }, 2000);
+        opn(config.environment.fullUrl, 'chrome');
+    }, 2500);
 });
 
-gulp.task('watch', ['serve'], function () {
+gulp.task('test', ['connect'], function() {
+    // same as task.serve -- wait until previous tasks are done before running the tests. Shouldn't be required after gulp v4
+    setTimeout(function() {
+        gulp.src('./test', { read: false })
+            .pipe($.mocha())
+            .once('end', function() {
+                process.exit();
+            });
+    }, 2500);
+});
+
+gulp.task('watch', ['serve'], function() {
     // watch for changes
     gulp.watch('app/public/styles/**/*.scss', ['styles']);
     gulp.watch('app/public/scripts/**/*.js', ['scripts']);

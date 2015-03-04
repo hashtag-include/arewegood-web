@@ -35,22 +35,21 @@
     "gulp-jshint": "^1.5.3",
     "gulp-livereload": "^1.2.0",
     "gulp-load-plugins": "^0.5.0",
+    "gulp-mocha": "^2.0.0",
     "gulp-nodemon": "^1.0.5",
     "gulp-ruby-sass": "^0.4.3",
     "gulp-size": "^0.3.0",
     "gulp-uglify": "^0.2.1",
     "jshint-stylish": "^0.2.0",
     "merge-stream": "^0.1.7",
-    "mocha": "^2.0.1",
-    "opn": "^0.1.1"
+    "opn": "^0.1.1",
+    "supertest": "^0.15.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
     "start": "node ./bin/www",
-    "test": "npm run test-node && npm run test-browser",
-    "test-node": "mocha -R spec ./test/spec/test.js",
-    "test-browser": ""
+    "test": "gulp test"
   }
 }

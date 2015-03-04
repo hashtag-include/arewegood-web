@@ -27,6 +27,14 @@ module.exports = {
             return next();
         };
     },
+    // force all routes to use ssl unless in dev environment
+    forceSSL: function(req, res, next) {
+        if (req.headers['x-forwarded-proto'] === 'https' || req.headers['x-arr-ssl'] || req.secure || process.env.NODE_ENV === 'development'){
+            return next();
+        }
+        res.redirect('https://' + req.headers.host + req.url);
+    },
+    // validates that a user is currently signed in
     isLoggedIn: function(req, res, next) {
         if (req.isAuthenticated()) {
             return next();
