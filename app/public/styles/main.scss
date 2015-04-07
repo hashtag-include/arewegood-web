@@ -11,6 +11,44 @@ body {
     .transparent-bkg {
         background: none !important; 
     }
+    .centered {
+        text-align: center;
+    }
+    #splash {
+        height: 650px;
+        min-width: 100%;
+        width: 100%;
+        div {
+            padding-left: 10px;
+            padding-right: 10px;
+            position: absolute;
+            top: 500px;
+            color: #ffffff;
+            background-color: #000000;
+            opacity: 0.8;
+            h1 {
+                padding-top: 2px;
+                padding-bottom: 2px;
+                small {
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+    #splash-footer {
+        float: right;
+        padding-right: 5px;
+    }
+    .inline {
+        display: inline;
+    }
+    .pad-10 {
+        padding-left: 10px;
+    }
+    .what-we-do {
+        margin-top: 40px;
+        padding-left:2px;
+    }
     .header {
         padding: 20px 75px;
         background-color: #16a085;
