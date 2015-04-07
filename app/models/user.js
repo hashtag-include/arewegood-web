@@ -31,9 +31,7 @@ var userSchema = mongoose.Schema({
         validate: [isNotEmpty, 'email required']
     },
     name: {
-        type: String,
-        required: true,
-        validate: [isNotEmpty, 'name required']
+        type: String
     },
     avatar: {
         type: String
