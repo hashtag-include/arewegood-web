@@ -6,44 +6,76 @@ $font-stack: Helvetica, Arial, sans-serif;
 
 /* literally all of this is going to be thrown out after the demo */
 body {
+  background-color: #107360;
     font-family: $font-stack;
-
-    .container {
-        .header {
-            padding: 20px 0;
-            border-bottom: 1px solid #e5e5e5;
-
-            .mark {
-                height: 50px;
-                background: none;
-            }
-
-            .logo {
-                height: 40px;
-                padding: 5px 10px;
-            }
-
-            button {
-                position: relative;
-                float: right;
-                width: 100px;
-                height: 45px;
-                padding: 0;
-                font-size: 20px;
-                color: white;
-                text-align: center;
-                background: #16a085;
-                border: 0;
-                cursor: pointer;
-
-                &:active {
-                    top: 1px;
-                }
-            }
+    .header {
+        padding: 20px 75px;
+        background-color: #16a085;
+        
+        .logo-parent {
+            height: 90px;
+            padding-top: 38px;
+            padding-bottom: 38px;
+            padding-left: 8px;
+            padding-right: 8px;
+            background-color: #ffffff;
         }
 
+        .mark {
+            height: 50px;
+        }
+
+        .logo {
+            height: 40px;
+            padding: 5px 10px;
+        }
+
+        button {
+            position: relative;
+            float: right;
+            width: 100px;
+            height: 45px;
+            padding: 0;
+            font-size: 20px;
+            color: white;
+            text-align: center;
+            background: #16a085;
+            border: 0;
+            cursor: pointer;
+
+            &:active {
+                top: 1px;
+            }
+        }
+    }
+    
+    .containerz {
+      background-color: #f4f4f4;
+      padding: 16px;
+      margin-right: 0px;
+      margin-left: 75px;
         .content {
             min-height: 500px;
+            clear: both;
+            
+            .user {
+              display: inline-block;
+              img {
+                height: 150px;
+                width: 150px;
+                border-radius: 8px;
+              }
+              .info {
+                margin: 4px;
+                font-size: 18px;
+                font-family: "lato", Arial;
+                color: #808080;
+              }
+            }
+            
+            .repos {
+              display: inline-block;
+            }
 
             h1, h4 {
                 color: #16a085;
@@ -53,21 +85,21 @@ body {
                 margin: 20px 0 0;
                 display: inline-block;
             }
-
-            .user, .key {
-                margin: 5px 0 30px 20px;
-
+            .profile-link {
+              
+            }
+            .userd, .key {
+                width: auto;
                 img {
                     height: 150px;
                     width: 150px;
-                    float: left;
+                    border-radius: 8px;
                 }
 
                 .info {
                     margin-left: 175px;
 
                     p {
-                        margin: 5px;
                         font-size: 15px;
                     }
                 }

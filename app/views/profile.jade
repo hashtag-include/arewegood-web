@@ -7,26 +7,22 @@ block append extStyles
 
 block content
     .content
-        h4 Welcome!
         div.user
-            img(src='#{user.avatar}')/
-            div.info
-                p #{user.username}
-                p #{user.name}
-                p #{user.email}
-                p #{user.githubToken}
-                p #{user.githubId}
-
-        h4 Repositories
-        table.repositories
-            thead
-                tr
-                    th Repo
-            tbody
-                for repository in user.repositories
-                    tr
-                        td.name
-                            a(href='/#{repository.fullName}') #{repository.fullName}
+          img(src='#{user.avatar}')/
+          div.info 
+            span #{user.username}
+                
+        div.repos
+          h4 Repositories
+          table.repositories
+              thead
+                  tr
+                      th Repo
+              tbody
+                  for repository in user.repositories
+                      tr
+                          td.name
+                              a(href='/#{repository.fullName}') #{repository.fullName}
 
 block append extScripts
     script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
