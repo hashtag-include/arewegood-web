@@ -120,8 +120,9 @@ module.exports = function(passport) {
             // if the user already exists in the DB, update the githubToken as well as avatar
             if (user) {
                 user.githubToken = accessToken;
-                user.avatar = githubProfile._json.avatar_url // jshint ignore:line
-
+                user.avatar = githubProfile._json.avatar_url; // jshint ignore:line
+                user.html_url = githubProfile._json.html_url;// jshint ignore:line
+                
                 // save and return the updated user
                 user.save(function(err) {
                     if (err) { return done(err); }
