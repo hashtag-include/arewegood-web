@@ -135,6 +135,7 @@ module.exports = function(passport) {
                     githubId: githubProfile.id,
                     username: githubProfile._json.login,
                     name: githubProfile._json.name,
+                    html_url: githubProfile._json.html_url,// jshint ignore:line
                     avatar: githubProfile._json.avatar_url // jshint ignore:line
                 });
 

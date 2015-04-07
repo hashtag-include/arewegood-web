@@ -33,6 +33,11 @@ var userSchema = mongoose.Schema({
     name: {
         type: String
     },
+    html_url: { // jshint ignore:line
+        type: String,
+        required: true,
+        validate: [isNotEmpty, 'html_url required']
+    },
     avatar: {
         type: String
     },
