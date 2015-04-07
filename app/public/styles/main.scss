@@ -8,6 +8,9 @@ $font-stack: Helvetica, Arial, sans-serif;
 body {
   background-color: #107360;
     font-family: $font-stack;
+    .transparent-bkg {
+        background: none !important; 
+    }
     .header {
         padding: 20px 75px;
         background-color: #16a085;
