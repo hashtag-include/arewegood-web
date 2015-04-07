@@ -1,11 +1,15 @@
 'use strict';
 
+// Node doesn't have this. see https://github.com/mathiasbynens/String.prototype.startsWith
+require('string.prototype.startswith');
+
 var express = require('express');
 var router = express.Router();
 
 var User = require('../models/user');
 var Repository = require('../models/repository');
 var middleware = require('../helpers/middleware');
+var SimpleResponse = require('../helpers/misc').SimpleResponse;
 
 module.exports = function(passport) {
     // root endpoint, renders the homepage
@@ -65,6 +69,31 @@ module.exports = function(passport) {
                     repository: repository
                 }); 
             }  
+        });
+    });
+
+    // for repo searching typeahead on the /profile ui page
+    // uses ?q=thing+to+search+for syntax
+    router.get('/repo-search', middleware.isLoggedIn, function(req, res) {
+        var query = req.query.q || null;
+
+        if (query === null) {
+            return res.status(500).json(new SimpleResponse('error', 'q parameter is not defined'));
+        }
+
+        User.findById(req.user._id).populate('repositories').exec(function(err, user) {
+            if(err) {
+                return res.status(500).json(new SimpleResponse('error', err));
+            }
+
+            var repos = [];
+            for (var i = 0; i < user.repositories.length; i++) {
+                var repo = user.repositories[i];
+                if (repo.name.startsWith(query) || repo.fullName.startsWith(query)) {
+                    repos.push(repo);
+                }
+            }
+            res.send({repos: repos});
         });
     });
 
