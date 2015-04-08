@@ -13,8 +13,9 @@ block content
             span.user
               img(src='#{user.avatar}')
               div.info 
-                span #{user.username}
-                a(href='#{user.html_url}') #{user.html_url}
+                div #{user.username}
+                div
+                  a(href='#{user.html_url}') #{user.html_url}
           .col-lg-10
             span.repos
               h4 Repositories
@@ -22,7 +23,8 @@ block content
                   thead
                       tr
                           th Repo
-                  tbody
+                            input.repo-search(placeholder="search")
+                  tbody.repos-body
                       for repository in user.repositories
                           tr
                               td.name
