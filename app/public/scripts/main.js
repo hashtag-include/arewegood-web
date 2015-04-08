@@ -1,5 +1,19 @@
 'use strict';
 var typeAheadTimeout = 0;
+
+function search(e) {
+  $.get( "repo-search/?q="+$('.repo-search').val(), function( data ) {
+    // remove all things from the table
+    $('.repos-body').find('tr').remove();
+    for(var i = 0; i < data.repos.length; i++) {
+      var repo = data.repos[i];
+      console.log(repo);
+      $('.repos-body').append('<tr><td class="name"><a href="/'+repo.fullName+'">'+repo.fullName+'</a></td></tr>');
+    }
+    console.log(data);
+  });
+}
+
 $(document).ready(function() {
   $('#splash').backstretch('images/splash-fun.jpg');
   
@@ -37,19 +51,6 @@ $(document).ready(function() {
     }, 300);
   });
 });
-
-function search(e) {
-  $.get( "repo-search/?q="+$('.repo-search').val(), function( data ) {
-    // remove all things from the table
-    $('.repos-body').find('tr').remove();
-    for(var i = 0; i < data.repos.length; i++) {
-      var repo = data.repos[i];
-      console.log(repo);
-      $('.repos-body').append('<tr><td class="name"><a href="/'+repo.fullName+'">'+repo.fullName+'</a></td></tr>');
-    }
-    console.log(data);
-  });
-}
 
 var TableView = function(selector) { // jshint ignore:line
     this.$el = $(selector);
