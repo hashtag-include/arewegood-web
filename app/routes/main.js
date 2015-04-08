@@ -77,13 +77,12 @@ module.exports = function(passport) {
     router.get('/repo-search', middleware.isLoggedIn, function(req, res) {
         var query = req.query.q || null;
 
-        if (query === null) {
-            return res.status(500).json(new SimpleResponse('error', 'q parameter is not defined'));
-        }
-
         User.findById(req.user._id).populate('repositories').exec(function(err, user) {
             if(err) {
                 return res.status(500).json(new SimpleResponse('error', err));
+            }
+            if (query === null) {
+                return res.send({repos: user.repositories});
             }
 
             var repos = [];
