@@ -6,70 +6,162 @@ $font-stack: Helvetica, Arial, sans-serif;
 
 /* literally all of this is going to be thrown out after the demo */
 body {
+  background-color: #107360;
     font-family: $font-stack;
-
-    .container {
-        .header {
-            padding: 20px 0;
-            border-bottom: 1px solid #e5e5e5;
-
-            .mark {
-                height: 50px;
-                background: none;
-            }
-
-            .logo {
-                height: 40px;
-                padding: 5px 10px;
-            }
-
-            button {
-                position: relative;
-                float: right;
-                width: 100px;
-                height: 45px;
-                padding: 0;
-                font-size: 20px;
-                color: white;
-                text-align: center;
-                background: #16a085;
-                border: 0;
-                cursor: pointer;
-
-                &:active {
-                    top: 1px;
+    .transparent-bkg {
+        background: none !important; 
+    }
+    .centered {
+        text-align: center;
+    }
+    #splash {
+        height: 650px;
+        min-width: 100%;
+        width: 100%;
+        div {
+            padding-left: 10px;
+            padding-right: 10px;
+            position: absolute;
+            top: 500px;
+            color: #ffffff;
+            background-color: #000000;
+            opacity: 0.8;
+            h1 {
+                padding-top: 2px;
+                padding-bottom: 2px;
+                small {
+                    padding-left: 10px;
                 }
             }
         }
+    }
+    #splash-footer {
+        float: right;
+        padding-right: 5px;
+        color: #d9d9d9;
+    }
+    .inline {
+        display: inline;
+    }
+    .pad-10 {
+        padding-left: 10px;
+    }
+    .what-we-do {
+        margin-top: 40px;
+        padding-left: 2px;
+        color: #d9d9d9;
+        .blurb {
+          margin-top: 8px;
+        }
+        .icon {
+          width: 64px;
+          height: 64px;
+          padding: 0px;
+        }
+        .title {
+          margin-top: 20px;
+        }
+    }
+    
+    .header {
+        padding: 20px 75px;
+        background-color: #16a085;
+        
+        .logo-parent {
+            height: 90px;
+            padding-top: 38px;
+            padding-bottom: 38px;
+            padding-left: 8px;
+            padding-right: 8px;
+            background-color: #ffffff;
+        }
 
+        .mark {
+            height: 50px;
+        }
+
+        .logo {
+            height: 40px;
+            padding: 5px 10px;
+        }
+
+        button {
+            position: relative;
+            float: right;
+            width: 100px;
+            height: 45px;
+            padding: 0;
+            font-size: 20px;
+            color: white;
+            text-align: center;
+            background: #16a085;
+            border: 0;
+            cursor: pointer;
+
+            &:active {
+                top: 1px;
+            }
+        }
+    }
+    
+    .containerz {
+      background-color: #f4f4f4;
+      padding: 16px;
+      margin-right: 0px;
+      margin-left: 75px;
         .content {
             min-height: 500px;
-
+            clear: both;
+            
+            .user {
+              img {
+                height: 150px;
+                width: 150px;
+                border-radius: 8px;
+              }
+              .info {
+                margin: 4px;
+                font-size: 18px;
+                font-family: "lato", Arial;
+                color: #808080;
+                
+                p {
+                  font-size: 16px;
+                }
+                a {
+                  font-size: 12px;
+                }
+              }
+            }
+            
+            .repos {
+            }
+            .repo-search {
+              margin-left: 24px;
+              padding-left: 4px;
+            }
             h1, h4 {
                 color: #16a085;
             }
             h4 {
                 font-size: 20px;
                 margin: 20px 0 0;
-                display: inline-block;
             }
-
-            .user, .key {
-                margin: 5px 0 30px 20px;
-
+            .profile-link {
+              
+            }
+            .key {
+                width: auto;
                 img {
                     height: 150px;
                     width: 150px;
-                    float: left;
+                    border-radius: 8px;
                 }
 
                 .info {
                     margin-left: 175px;
 
-                    p {
-                        margin: 5px;
-                        font-size: 15px;
-                    }
+                    
                 }
             }
 
@@ -85,7 +177,10 @@ body {
                     margin-top: 10px;   
                 }
 
-                
+                tr {
+                  display: inline-block;
+                  padding: 2px 10px;
+                }
             }
         }
 
