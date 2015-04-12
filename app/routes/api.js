@@ -12,7 +12,8 @@ var SimpleResponse = require('../helpers/misc').SimpleResponse;
 module.exports = function(passport) {
     // logs ======================================================================
     router.post('/logs', passport.authenticate('bearer', { session: false }), middleware.forceJSON(), function(req, res) {
-        // make sure logs are present in the request
+console.log(req.body);        
+// make sure logs are present in the request
         if(!req.body.logs) {
             res.status(400).json(new SimpleResponse('error', 'invalid body content'));
         }
