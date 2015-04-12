@@ -23,8 +23,7 @@ $(document).ready(function() {
     {h1: 'Understanding code.', small:'Best. Feeling. Ever.'},
     {h1: 'Zero downtime.', small:'Now you\'re talking.'},
     {h1: 'Exception handling.', small:'Let us do that for you.'},
-    {h1: 'Arbitrary data.', small:'Log whatever feels right.'},
-    {h1: 'Ben smells', small:'... good'}
+    {h1: 'Arbitrary data.', small:'Log whatever feels right.'}
   ], prevTagline = 0;
 
   setInterval(function() {
