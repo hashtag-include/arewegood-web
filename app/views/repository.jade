@@ -2,7 +2,7 @@ extends layout
 
 //- literally all of this is going to be thrown out after the demo
 
-block append extStyles
+block append styles
     link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
 
 block content
@@ -23,10 +23,8 @@ block content
                     td.data #{log.data}
                     td.createdAt #{log.createdAt}
 
-block append extScripts
+block append scripts
     script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
     script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')
-
-block append intScripts
     script.
         new TableView('.container table.logs').init();

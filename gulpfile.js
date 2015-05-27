@@ -79,12 +79,12 @@ gulp.task('helpers', function() {
 
 gulp.task('images', function() {
     var theme = gulp.src('app/public/images/theme/**/*')
-        .pipe($.imagemin({
-            optimizationLevel: 3,
-            progressive: true,
-            interlaced: true
-        }))
-        .pipe(gulp.dest('.build/public/images'))
+//        .pipe($.imagemin({
+//            optimizationLevel: 3,
+//            progressive: true,
+//            interlaced: true
+//        }))
+        .pipe(gulp.dest('.build/public/images/theme'))
         .pipe($.size());
         
     var custom = gulp.src(['app/public/images/**/*', '!app/public/images/theme/**/*'])
@@ -123,8 +123,6 @@ gulp.task('clean', function() {
 
 gulp.task('build', ['views', 'styles', 'scripts', 'images', 'fonts', 'extras', 'routes', 'models', 'helpers']);
 
-gulp.task('blah', ['clean']);
-
 gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
@@ -139,6 +137,10 @@ gulp.task('connect', ['default'], function() {
     });
 });
 
+/**
+ * This is just temporary. With the Metronic integration, there are so many files to iterate over that it cuases
+ * issues running clean every time. Once the theme is integrated in its entirety, the gulpfile will need to be updated
+ */
 gulp.task('up', function() {
     $.nodemon({
         script: './bin/www',
@@ -149,7 +151,8 @@ gulp.task('up', function() {
     });
 });
 
-gulp.task('serve', ['connect'], function() {
+// This should be calling 'connect' before-hand, not 'up'
+gulp.task('serve', ['up'], function() {
     // open the browser too soon and you'll hit the page before connect can run (hardcode ftw)
     setTimeout(function() {
         var browserString;
@@ -194,6 +197,7 @@ gulp.task('watch', ['serve'], function() {
     gulp.watch('app/public/scripts/**/*.js', ['scripts']);
     gulp.watch('app/public/images/**/*', ['images']);
     gulp.watch('app/public/fonts/**/*', ['fonts']);
+    gulp.watch('app/public/plugins/**/*.*', ['extras']);
     gulp.watch('app/views/**/*.jade', ['views']);
     gulp.watch('app/routes/**/*.js', ['routes']);
     gulp.watch('app/models/**/*.js', ['models']);

@@ -77,10 +77,10 @@ Page Header
 .page-header.navbar .page-logo {
   float: left;
   display: block;
-  width: 195px;
+  width: 70px;
   height: 68px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .page-header.navbar .page-logo > .logo-image,
 .page-header.navbar .page-logo > a {
@@ -88,7 +88,8 @@ Page Header
   float: left;
 }
 .page-header.navbar .page-logo .logo-default {
-  margin: 27px 0 0 0;
+  margin: 5px 0 0 0;
+  height: 60px;
 }
 .page-header.navbar .page-logo .logo-mini {
   display: none;
@@ -546,7 +547,7 @@ Page Header
     /* Top menu */
   }
   .page-boxed .page-header.navbar .page-logo {
-    width: 195px;
+    width: 70px;
   }
   .page-boxed .page-header.navbar .top-menu .navbar-nav {
     margin-right: 20px;
@@ -787,7 +788,8 @@ Page container
 @media (min-width: 1260px) {
   /* 1200px */
   .container {
-    width: 1270px;
+    width: 100%;
+    padding: 0;
   }
 }
 @media (min-width: 992px) {

@@ -8,41 +8,47 @@ html
         meta(name='description' content='arewegood is a realtime error handling and uptime platform for web services and apps that matter to you.')
         meta(name='viewport' content='width=device-width, initial-scale=1')
 
-        block extStyles
+        block styles
             link(rel='stylesheet' href='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/css/bootstrap.min.css')
             link(rel='stylesheet' href='//code.jquery.com/ui/1.11.3/themes/flick/jquery-ui.css')
-
-        block intStyles
-            link(rel='stylesheet' href='/styles/arewegood.min.css')
             link(href='http://fonts.googleapis.com/css?family=Lato|Montserrat' rel='stylesheet')
+        link(rel='stylesheet' href='/styles/theme.min.css')
+        link(rel='stylesheet' href='/styles/arewegood.min.css')
 
-    body
+    body.page-boxed.page-header-fixed.page-sidebar-closed-hide-logo.page-container-bg-solid.page-sidebar-closed-hide-logo
       block header
-        .header
-            span.logo-parent
-              a(href="/")
-                  img(class="mark transparent-bkg", src="/images/arewegood_header_mark.png")/
-                  img(class="logo", src="/images/arewegood_header_logo.png")/
-            if !user || !user._id
-                a(href="/login")
-                    button().
-                        Sign In
-            else
-                a(href="/logout")
-                    button().
-                        Sign Out
-        block containerz
-          .containerz
-            block content
-            
-            .footer
-                p Made with ♥ by the hashtag-include team
+        .page-header.navbar.navbar-fixed-top
+            .page-header-inner.container
+                .page-logo
+                    a(href='index.html')
+                        img.logo-default(src='/images/awg-mark-white.png', alt='logo')
+                a.menu-toggler.responsive-toggler(href='javascript:;', data-toggle='collapse', data-target='.navbar-collapse')
+                .page-actions.hide
+                .page-top
+                    form.search-form.search-form-expanded(action='extra_search.html', method='GET')
+                        .input-group
+                            input.form-control(type='text', placeholder='Search...', name='query')
+                            span.input-group-btn
+                                a.btn.submit(href='javascript:;')
+                                    i.icon-magnifier
+        .clearfix
+        .container
+            .page-container
+                .page-sidebar-wrapper
+                    .page-sidebar.navbar-collapse.collapse
+        .page-footer
+        .page-footer-inner
+            | Made with ♥ by the hashtag-include team
+        .scroll-to-top
+            i.icon-arrow-up
 
-        block extScripts
+
+
+
+        block scripts
             script(src='//ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js')
             script(src='//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.3/jquery-ui.min.js')
             script(src='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/bootstrap.min.js')
             script(src='//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js')
-
-        block intScripts
-            script(src='/scripts/arewegood.min.js')
+        script(src='/scripts/theme.min.js')
+        script(src='/scripts/arewegood.min.js')
