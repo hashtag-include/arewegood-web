@@ -12,7 +12,13 @@ var config = require('./config');
 
 
 gulp.task('styles', function() {
-    return gulp.src('app/public/styles/**/*.scss')
+    var theme = gulp.src('app/public/styles/theme/**/*.css')
+        .pipe($.csso())
+        .pipe($.concat('theme.min.css'))
+        .pipe(gulp.dest('.build/public/styles'))
+        .pipe($.size());
+
+    var custom = gulp.src(['app/public/styles/**/[^_]*.scss', '!app/public/styles/theme/**/[^_]*.scss'])
         .pipe($.rubySass({
             style: 'expanded',
             precision: 10
@@ -22,16 +28,26 @@ gulp.task('styles', function() {
         .pipe($.concat('arewegood.min.css'))
         .pipe(gulp.dest('.build/public/styles'))
         .pipe($.size());
+
+    return merge(custom, theme);
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('app/public/scripts/**/*.js')
+    var theme = gulp.src('app/public/scripts/theme/**/*.js')
+        .pipe($.uglify())
+        .pipe($.concat('theme.min.js'))
+        .pipe(gulp.dest('.build/public/scripts'))
+        .pipe($.size());
+
+    var custom = gulp.src(['app/public/scripts/**/*.js', '!app/public/scripts/theme/**/*.js'])
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
         .pipe($.uglify())
         .pipe($.concat('arewegood.min.js'))
         .pipe(gulp.dest('.build/public/scripts'))
         .pipe($.size());
+    
+    return merge(custom, theme);
 });
 
 gulp.task('views', function() {
@@ -62,7 +78,16 @@ gulp.task('helpers', function() {
 });
 
 gulp.task('images', function() {
-    return gulp.src('app/public/images/**/*')
+    var theme = gulp.src('app/public/images/theme/**/*')
+        .pipe($.imagemin({
+            optimizationLevel: 3,
+            progressive: true,
+            interlaced: true
+        }))
+        .pipe(gulp.dest('.build/public/images'))
+        .pipe($.size());
+        
+    var custom = gulp.src(['app/public/images/**/*', '!app/public/images/theme/**/*'])
         .pipe($.imagemin({
             optimizationLevel: 3,
             progressive: true,
@@ -82,6 +107,8 @@ gulp.task('fonts', function() {
 
 gulp.task('extras', function() {
     return merge(
+        gulp.src(['app/public/plugins/**/*.*'], { dot: true })
+            .pipe(gulp.dest('.build/public/plugins')),
         gulp.src(['app/*.*'], { dot: true })
             .pipe(gulp.dest('.build')),
         gulp.src(['app/public/*.*'], { dot: true })
@@ -103,6 +130,16 @@ gulp.task('default', ['clean'], function() {
 });
 
 gulp.task('connect', ['default'], function() {
+    $.nodemon({
+        script: './bin/www',
+        env: {
+            'NODE_ENV': 'development'
+        },
+        nodeArgs: ['--debug']
+    });
+});
+
+gulp.task('up', function() {
     $.nodemon({
         script: './bin/www',
         env: {
@@ -153,7 +190,7 @@ gulp.task('test', ['connect'], function() {
 
 gulp.task('watch', ['serve'], function() {
     // watch for changes
-    gulp.watch('app/public/styles/**/*.scss', ['styles']);
+    gulp.watch(['app/public/styles/**/*.scss', 'app/public/styles/**/*.css'], ['styles']);
     gulp.watch('app/public/scripts/**/*.js', ['scripts']);
     gulp.watch('app/public/images/**/*', ['images']);
     gulp.watch('app/public/fonts/**/*', ['fonts']);
