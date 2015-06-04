@@ -4,51 +4,174 @@ html
         meta(charset='utf-8')
         title
           block title
-            |arewegood
+            | arewegood
         meta(name='description' content='arewegood is a realtime error handling and uptime platform for web services and apps that matter to you.')
         meta(name='viewport' content='width=device-width, initial-scale=1')
 
         block styles
-            link(rel='stylesheet' href='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/css/bootstrap.min.css')
-            link(rel='stylesheet' href='//code.jquery.com/ui/1.11.3/themes/flick/jquery-ui.css')
+            link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all', rel='stylesheet', type='text/css')
+            link(href='/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+            link(href='/plugins/simple-line-icons/simple-line-icons.min.css', rel='stylesheet', type='text/css')
+            link(href='/plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+            link(href='/plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+            link(href='/plugins/bootstrap-switch/css/bootstrap-switch.min.css', rel='stylesheet', type='text/css')
             link(href='http://fonts.googleapis.com/css?family=Lato|Montserrat' rel='stylesheet')
         link(rel='stylesheet' href='/styles/theme.min.css')
         link(rel='stylesheet' href='/styles/arewegood.min.css')
 
-    body.page-boxed.page-header-fixed.page-sidebar-closed-hide-logo.page-container-bg-solid.page-sidebar-closed-hide-logo
+    body.page-boxed.page-header-fixed.page-sidebar-closed-hide-logo.page-container-bg-solid.page-sidebar-closed
       block header
         .page-header.navbar.navbar-fixed-top
             .page-header-inner.container
                 .page-logo
-                    a(href='index.html')
+                    a.logo-mark(href='#')
                         img.logo-default(src='/images/awg-mark-white.png', alt='logo')
-                a.menu-toggler.responsive-toggler(href='javascript:;', data-toggle='collapse', data-target='.navbar-collapse')
+                    a.logo-text(href='#')
+                        img.logo-text(src='/images/awg-logo-white.png', alt='arewegood')
+                a.menu-toggler.responsive-toggler(href='#', data-toggle='collapse', data-target='.navbar-collapse')
                 .page-actions.hide
                 .page-top
-                    form.search-form.search-form-expanded(action='extra_search.html', method='GET')
-                        .input-group
-                            input.form-control(type='text', placeholder='Search...', name='query')
-                            span.input-group-btn
-                                a.btn.submit(href='javascript:;')
-                                    i.icon-magnifier
+                    .top-menu
+                        ul.nav.navbar-nav.pull-right
+                            li#header_notification_bar.dropdown.dropdown-extended.dropdown-notification
+                                a.dropdown-toggle(href='#', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                    i.icon-bell
+                                    span.badge.badge-default
+                                        | 7
+                                ul.dropdown-menu
+                                    li.external
+                                        h3
+                                            span.bold 12 pending
+                                                |  notifications
+                                        a(href='#') view all
+                                    li
+                                        ul.dropdown-menu-list.scroller(style='height: 250px;', data-handle-color='#637283')
+                                            li
+                                                a(href='#')
+                                                    span.time 3 mins
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-danger
+                                                            i.fa.fa-bolt
+                                                        | Server #12 overloaded.
+                                            li
+                                                a(href='#')
+                                                    span.time 10 mins
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-warning
+                                                            i.fa.fa-bell-o
+                                                        | Server #2 not responding.
+                                            li
+                                                a(href='#')
+                                                    span.time 14 hrs
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-info
+                                                            i.fa.fa-bullhorn
+                                                        | Application error.
+                                            li
+                                                a(href='#')
+                                                    span.time 2 days
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-danger
+                                                            i.fa.fa-bolt
+                                                        | Database overloaded 68%.
+                                            li
+                                                a(href='#')
+                                                    span.time 3 days
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-danger
+                                                            i.fa.fa-bolt
+                                                        | A user IP blocked.
+                                            li
+                                                a(href='#')
+                                                    span.time 4 days
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-warning
+                                                            i.fa.fa-bell-o
+                                                        | Storage Server #4 not responding.
+                                            li
+                                                a(href='#')
+                                                    span.time 5 days
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-info
+                                                            i.fa.fa-bullhorn
+                                                        | System Error.
+                                            li
+                                                a(href='#')
+                                                    span.time 9 days
+                                                    span.details
+                                                        span.label.label-sm.label-icon.label-danger
+                                                            i.fa.fa-bolt
+                                                        | Storage server failed.
+                            li.dropdown.dropdown-user
+                                a.dropdown-toggle(href='#', data-toggle='dropdown', data-hover='dropdown', data-close-others='true')
+                                    img.img-circle(alt='', src='/images/theme/avatar3_small.jpg')
+                                    span.username.username-hide-on-mobile
+                                        | Nick
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu.dropdown-menu-default
+                                    li
+                                        a(href='#')
+                                            i.icon-user
+                                            | My Profile
+                                    li
+                                        a(href='#')
+                                            i.icon-envelope-open
+                                            | My Inbox 
+                                            span.badge.badge-danger
+                                                | 3
+                                    li.divider
+                                    li
+                                        a(href='#')
+                                            i.icon-key
+                                            | Log Out
         .clearfix
         .container
             .page-container
                 .page-sidebar-wrapper
                     .page-sidebar.navbar-collapse.collapse
-        .page-footer
-        .page-footer-inner
-            | Made with ♥ by the hashtag-include team
-        .scroll-to-top
-            i.icon-arrow-up
-
-
-
-
+                        ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded='false', data-auto-scroll='true', data-slide-speed='200')
+                            li.start.active
+                                a(href='#')
+                                    i.icon-home
+                                    span.selected
+                            li
+                                a(href='#')
+                                    i.icon-rocket
+                                    span.arrow
+                                ul.sub-menu
+                                    li
+                                        a(href='#') Lorem Ipsum
+                                    li
+                                        a(href='#') Lorem Ipsum
+                                    li
+                                        a(href='#') Lorem Ipsum
+                            li
+                                a(href='#')
+                                    i.icon-rocket
+                                    span.arrow
+                                ul.sub-menu
+                                    li
+                                        a(href='#') Lorem Ipsum
+                                    li
+                                        a(href='#') Lorem Ipsum
+                                    li
+                                        a(href='#') Lorem Ipsum
         block scripts
-            script(src='//ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js')
-            script(src='//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.3/jquery-ui.min.js')
-            script(src='//ajax.aspnetcdn.com/ajax/bootstrap/3.3.1/bootstrap.min.js')
-            script(src='//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js')
+            script(src='/plugins/jquery.min.js', type='text/javascript')
+            script(src='/plugins/jquery-migrate.min.js', type='text/javascript')
+            // IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip
+            script(src='/plugins/jquery-ui/jquery-ui.min.js', type='text/javascript')
+            script(src='/plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+            script(src='/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', type='text/javascript')
+            script(src='/plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+            script(src='/plugins/jquery.blockui.min.js', type='text/javascript')
+            script(src='/plugins/jquery.cokie.min.js', type='text/javascript')
+            script(src='/plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+            script(src='/plugins/bootstrap-switch/js/bootstrap-switch.min.js', type='text/javascript')
         script(src='/scripts/theme.min.js')
         script(src='/scripts/arewegood.min.js')
+        script.
+            jQuery(document).ready(function() {
+                Metronic.init();
+                Layout.init();
+            });
