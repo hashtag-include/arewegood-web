@@ -14,27 +14,27 @@ var SimpleResponse = require('../helpers/misc').SimpleResponse;
 module.exports = function(passport) {
     // root endpoint, renders the homepage
     router.get('/', function(req, res) {
-        res.render('index');
+        res.render('splash');
     });
 
     // the request will be redirected to GitHub for authentication, so this function will not be called.
     router.get('/login', passport.authenticate('github', { session: true }));
 
     // called by github after the user is authenticated
-    router.get('/login/callback', passport.authenticate('github', { failureRedirect: '/', session: true }), function(req, res) {
-        res.redirect('/profile');
+    router.get('/auth/callback', passport.authenticate('github', { failureRedirect: '/', session: true }), function(req, res) {
+        res.redirect('/dashboard');
     });
 
     // TODO: All of this is temporary strictly for demo and testing purposes, and will eventually be ajaxed in
     //  there should be a separate api endpoint for retrieving user details for ajax, and will use the github module instead of request
-    router.get('/profile', middleware.isLoggedIn, function(req, res) {
+    router.get('/dashboard', middleware.isLoggedIn, function(req, res) {
         User.findById(req.user._id).populate('repositories').exec(function(err, user) {
             if(err) {
                 return console.log(err);
             }
 
             // render the page with the injected content
-            res.render('profile', {
+            res.render('dashboard', {
                 user: user
             });   
         });
@@ -72,7 +72,7 @@ module.exports = function(passport) {
         });
     });
 
-    // for repo searching typeahead on the /profile ui page
+    // for repo searching typeahead on the /dashboard ui page
     // uses ?q=thing+to+search+for syntax
     router.get('/repo-search', middleware.isLoggedIn, function(req, res) {
         var query = req.query.q || null;

@@ -212,6 +212,18 @@ Page Header
   /* Language */
   /* Dark version */
 }
+.page-header.navbar .top-menu .navbar-nav > li.single {
+  margin: 0px;
+  padding: 0px;
+  height: 60px;
+  display: inline-block;
+}
+.page-header.navbar .top-menu .navbar-nav > li.single > .single-login {
+  margin: 0px;
+  padding: 20px 25px;
+  font-size: 14px;
+  font-weight: 400;
+}
 .page-header.navbar .top-menu .navbar-nav > li.dropdown {
   margin: 0px;
   padding: 0px;

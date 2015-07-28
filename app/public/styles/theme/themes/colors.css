@@ -22,6 +22,12 @@ Page Header
   /* Language */
   /* Dark version */
 }
+.page-header.navbar .top-menu .navbar-nav > li.single > .single-login {
+  color: #7f96ac;
+}
+.page-header.navbar .top-menu .navbar-nav > li.single > .single-login:hover {
+  background-color: #3b4754;
+}
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
   background-color: #3b4754;
 }
@@ -29,7 +35,7 @@ Page Header
   color: #C0CDDC;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle .badge.badge-default {
-  background-color: #14B9D6;
+  background-color: #439191;
   color: #ffffff;
 }
 .page-header.navbar .top-menu .navbar-nav > li.dropdown.open .dropdown-toggle {

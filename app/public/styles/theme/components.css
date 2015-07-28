@@ -9088,7 +9088,7 @@ Grey Default
 /* Portlet */
 .portlet > .portlet-body.grey,
 .portlet.grey {
-  background-color: #E5E5E5;
+  background-color: #35404d;
 }
 
 .portlet.solid.grey > .portlet-title,
@@ -9126,10 +9126,16 @@ Grey Default
   border-top: 0;
 }
 .portlet.box.grey > .portlet-title {
-  background-color: #E5E5E5;
+  background-color: #35404d;
 }
 .portlet.box.grey > .portlet-title > .caption {
-  color: #333333;
+  color: #F1F3FA;
+}
+.portlet.box.grey > .portlet-title > .caption > a, 
+.portlet.box.grey > .portlet-title > .caption > a:active, 
+.portlet.box.grey > .portlet-title > .caption > a:hover {
+  font-weight: 100;
+  color: #F1F3FA;
 }
 .portlet.box.grey > .portlet-title > .caption > i {
   color: #333333;
