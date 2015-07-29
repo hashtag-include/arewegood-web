@@ -1139,6 +1139,7 @@ Page sidebar
     width: 60px !important;
     position: fixed;
     height: 100% !important;
+    z-index: 1;
   }
   .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed {
     /* sidebar */
@@ -1436,28 +1437,28 @@ Page content
 ***/
 /* Page title */
 .page-title {
-  padding: 0px;
-  font-size: 26px;
+  padding: 10px;
+  font-size: 35px;
   letter-spacing: -1px;
-  line-height: 26px;
+  line-height: 35px;
   display: block;
-  color: #666;
-  margin: 0px 0px 20px 0px;
-  font-weight: 300;
+  color: #439191;
+  margin: 0px 00px 20px 0px;
+  font-weight: 100;
   font-family: "Open Sans", sans-serif;
   /* subtitle */
 }
 .page-title small {
-  font-size: 13px;
+  font-size: 30px;
   letter-spacing: 0px;
-  font-weight: 300;
-  color: #888;
+  font-weight: 100;
+  color: #439191;
 }
 .page-container-bg-solid .page-title {
-  color: #666;
+  color: #439191;
 }
 .page-container-bg-solid .page-title small {
-  color: #666;
+  color: #439191;
 }
 
 /* Page breadcrumb */
@@ -1641,10 +1642,10 @@ Page content
   }
   .page-content-wrapper .page-content .page-title {
     margin-bottom: 15px;
-    font-size: 20px;
+    font-size: 25px;
   }
   .page-content-wrapper .page-content .page-title small {
-    font-size: 13px;
+    font-size: 18px;
     padding-top: 3px;
   }
 }

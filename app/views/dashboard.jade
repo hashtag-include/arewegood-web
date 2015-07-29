@@ -5,20 +5,23 @@ block title
 block page-content
     .page-content-wrapper
         .page-content
-            h1 Dashboard
+            h1.page-title Dashboard
             each repository in user.repositories
-                .col-md-4
+                .col-md-6
                     .portlet.grey.box
                         .portlet-title
                             .caption
                                 a(href='/#{repository.fullName}')
                                     | #{repository.fullName}
                             .tools
-                                a.collapse(href="javascript:;")
                                 a.config(href="#portlet-config", data-toggle="modal")
                                 a.reload(href="javascript:;")
                                 a.remove(href="javascript:;")
-                        #blockui_sample_1_portlet_body.portlet-body
+                        .portlet-body
+                            p
+                                | At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.
+                            p
+                                | Aet accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et.
                             p
                                 | At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.
                             p

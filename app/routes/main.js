@@ -14,7 +14,11 @@ var SimpleResponse = require('../helpers/misc').SimpleResponse;
 module.exports = function(passport) {
     // root endpoint, renders the homepage
     router.get('/', function(req, res) {
-        res.render('splash');
+        if(req.isAuthenticated()) {
+            res.redirect('/dashboard');
+        } else {
+            res.render('splash');
+        }
     });
 
     // the request will be redirected to GitHub for authentication, so this function will not be called.
@@ -51,7 +55,6 @@ module.exports = function(passport) {
             if(err) {
                 return console.log(err);
             }
-
             if(!repository) {
                 res.render('error', {
                     message: 'Not Found',

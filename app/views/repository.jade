@@ -2,9 +2,6 @@ extends layout
 
 //- literally all of this is going to be thrown out after the demo
 
-block append styles
-    link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
-
 block content
     .content
         h4 API Key
@@ -23,6 +20,37 @@ block content
                     td.data #{log.data}
                     td.createdAt #{log.createdAt}
 
+extends layout
+block title
+  | arewegood | monitoring and exception handling for apps that matter
+  
+block append styles
+    link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
+
+block page-content
+    .page-content-wrapper
+        .page-content
+            h1.page-title #{repository.fullName}
+
+            h4 API Key
+            div.key #{repository.key}
+
+            h4 Application Logs
+            if repository.logs.length > 0
+                table.logs
+                    thead
+                        tr
+                            th Type
+                            th Data
+                            th Created
+                    tbody
+                        each log in repository.logs
+                            tr
+                                td.type #{log.type}
+                                td.data #{log.data}
+                                td.createdAt #{log.createdAt}
+            else
+                | No logs
 block append scripts
     script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
     script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')
