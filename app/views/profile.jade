@@ -2,40 +2,38 @@ extends layout
 
 //- literally all of this is going to be thrown out after the demo
 
-block append extStyles
+block append styles
     link(rel='stylesheet' href='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css')
 
 block content
     .content
-      .container-full
-        .row
-          .col-lg-2
-            span.user
-              img(src='#{user.avatar}')
-              div.info 
-                div #{user.username}
-                div
-                  a(href='#{user.html_url}') #{user.html_url}
-          .col-lg-10
-            span.repos
-              h4 Repositories
-              table.repositories
-                  thead
-                      tr
-                          th Repo
-                            input.repo-search(placeholder="search")
-                  tbody.repos-body
-                      for repository in user.repositories
-                          tr
-                              td.name
-                                  a(href='/#{repository.fullName}') #{repository.fullName}
+        .container-full
+            .row
+                .col-lg-2
+                    span.user
+                        img(src='#{user.avatar}')
+                        div.info 
+                            div #{user.username}
+                            div
+                                a(href='#{user.html_url}') #{user.html_url}
+                .col-lg-10
+                    span.repos
+                        h4 Repositories
+                        table.repositories
+                            thead
+                                tr
+                                    th Repo
+                                        input.repo-search(placeholder="search")
+                            tbody.repos-body
+                                for repository in user.repositories
+                                    tr
+                                        td.name
+                                            a(href='/#{repository.fullName}') #{repository.fullName}
                 
         
 
-block append extScripts
+block append scripts
     script(src='//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js')
     script(src='//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js')
-
-block append intScripts
     script.
         new TableView('.container table.repositories').init();
