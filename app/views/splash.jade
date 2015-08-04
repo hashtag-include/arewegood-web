@@ -1,0 +1,35 @@
+extends layout
+block title
+  | arewegood | monitoring and exception handling for apps that matter
+
+block page-header
+    include ./includes/header-splash.jade
+block page-sidebar
+
+block page-content
+    .page-content-wrapper
+        .page-content
+            h1 What we do
+            .col-md-6
+                .row
+                    img.icon.col-md-2(src="images/icons/safe.svg")
+                    h2.title.col-md-8 Monitoring that matters
+                    p.blurb We track your application's uptime and errors so you don't have to. arewegood was designed from the ground up with the idea that you shouldn't need to be a developer to know when something is wrong. The arewegood platform provides a simple view designed to answer the question "are we good?" without overwhelming you with details.
+            
+            .col-md-6
+                .row
+                    img.icon.col-md-2(src="images/icons/graph.svg")
+                    h2.col-md-8 Analyze application data
+                    p.blurb With the arewegood SDK, you can track, visualize, and analyze any application data. The arewegood SDK allows developers to determine what type of data they want to send to arewegood, and supports any information that can be represented in JSON. We think this provides a robust way to upload data for introspection via our web dashboard.
+            
+            .col-md-6
+                .row
+                    img.icon.col-md-2(src="images/icons/lock.svg")
+                    h2.col-md-8 Safe and secure
+                    p.blurb All communication with arewegood is encrypted using modern web standards to give you peace of mind. arewegood supports encrypted connections using TLS1.2 and AES_256_CBC with SHA1 and RSA. These technologies ensure that your data is always secure and private.
+            
+            .col-md-6
+                .row
+                    img.icon.col-md-2(src="images/icons/play.svg")
+                    h2.col-md-8 Spend less time working
+                    p.blurb Let arewegood worry about your application, go have a good time. arewegood will keep track of your services and applications while you're gone, and notify you if anything goes bad. We've got you covered.
