@@ -88,8 +88,8 @@ Page Header
   float: left;
 }
 .page-header.navbar .page-logo .logo-default {
-  margin: 5px;
-  height: 50px;
+  margin: 8px;
+  height: 44px;
 }
 .page-header.navbar .page-logo .logo-mini {
   display: none;
@@ -104,8 +104,15 @@ Page Header
   background: #BAC0B6;
 }
 .page-header.navbar .logo-text {
-  margin: 10px 0 0 4px;
+  position: relative;
+  height: 100%;
+}
+.page-header.navbar .logo-text img {
   height: 25px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 5px;
 }
 .page-header.navbar .search-form {
   margin-left: 10px;
@@ -1442,7 +1449,7 @@ Page content
   letter-spacing: -1px;
   line-height: 35px;
   display: block;
-  color: #439191;
+  color: #e57373;
   margin: 0px 00px 20px 0px;
   font-weight: 100;
   font-family: "Open Sans", sans-serif;
@@ -1452,13 +1459,13 @@ Page content
   font-size: 30px;
   letter-spacing: 0px;
   font-weight: 100;
-  color: #439191;
+  color: #e57373;
 }
 .page-container-bg-solid .page-title {
-  color: #439191;
+  color: #e57373;
 }
 .page-container-bg-solid .page-title small {
-  color: #439191;
+  color: #e57373;
 }
 
 /* Page breadcrumb */
@@ -1574,7 +1581,7 @@ Page content
   .page-content-wrapper .page-content {
     margin-left: 195px;
     margin-top: 0px;
-    min-height: 600px;
+    min-height: 0 !important;
     padding: 25px 20px 10px 20px;
   }
   .page-content-wrapper .page-content.no-min-height {

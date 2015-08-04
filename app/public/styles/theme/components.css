@@ -4474,6 +4474,7 @@ Portlets
 
 /* Basic portlet */
 .portlet {
+  box-shadow: none;
   margin-top: 0px;
   margin-bottom: 25px;
   padding: 0px;
@@ -4504,7 +4505,7 @@ Portlets
   padding: 0 10px;
 }
 .portlet > .portlet-title {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee !important;
   padding: 0;
   margin-bottom: 10px;
   min-height: 41px;
@@ -4513,6 +4514,12 @@ Portlets
   -ms-border-radius: 4px 4px 0 0;
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
+}
+.portlet > .portlet-title a, .portlet > .portlet-title a:hover, .portlet > .portlet-title a:active {
+  font-weight: 100;
+  font-size: 20px;
+  color: #686A6D;
+  text-decoration: none;
 }
 .portlet > .portlet-title:before, .portlet > .portlet-title:after {
   content: " ";
@@ -4793,10 +4800,10 @@ Portlets
   border: 1px solid #e1e1e1 !important;
 }
 .portlet.light.bordered > .portlet-title {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee !important;
 }
 .portlet.light.bg-inverse {
-  background: #F7F7F7;
+  background: #fff;
 }
 .portlet.light > .portlet-title {
   padding: 0;
@@ -6201,7 +6208,7 @@ Custom tabs
   margin-top: 0px;
 }
 .tabbable-line > .nav-tabs > li.active {
-  border-bottom: 4px solid #F3565D;
+  border-bottom: 4px solid #e57373;
   position: relative;
 }
 .tabbable-line > .nav-tabs > li.active > a {
@@ -9101,6 +9108,10 @@ Grey Default
 }
 .portlet.solid.grey > .portlet-title > .caption > i {
   color: #333333;
+}
+.portlet.solid.yellow-casablanca > .portlet-title > .tools > a:hover,
+.portlet.solid.yellow-casablanca > .portlet-title > .tools > a:active {
+  text-decoration: none;
 }
 .portlet.solid.grey > .portlet-title > .tools > a.remove {
   background-image: url(../../images/theme/portlet-remove-icon-white.png);

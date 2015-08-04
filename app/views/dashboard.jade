@@ -8,21 +8,29 @@ block page-content
             h1.page-title Dashboard
             each repository in user.repositories
                 .col-md-6
-                    .portlet.grey.box
-                        .portlet-title
+                    .portlet.light.bordered
+                        .portlet-title.tabbable-line
                             .caption
                                 a(href='/#{repository.fullName}')
                                     | #{repository.fullName}
-                            .tools
-                                a.config(href="#portlet-config", data-toggle="modal")
-                                a.reload(href="javascript:;")
-                                a.remove(href="javascript:;")
+                            ul.nav.nav-tabs
+                                li.active
+                                    a(href='##{repository._id}_day' data-toggle='tab')
+                                        | Day
+                                li
+                                    a(href='##{repository._id}_week' data-toggle='tab')
+                                        | Week
+                                li
+                                    a(href='##{repository._id}_month' data-toggle='tab')
+                                        | Month
                         .portlet-body
-                            p
-                                | At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.
-                            p
-                                | Aet accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et.
-                            p
-                                | At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.
-                            p
-                                | Aet accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et.
+                            .tab-content
+                                .tab-pane.active(id='#{repository._id}_day')
+                                    p
+                                        | [DAY] At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.
+                                .tab-pane(id='#{repository._id}_week')
+                                    p
+                                        | [WEEK] At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.
+                                .tab-pane(id='#{repository._id}_month')
+                                    p
+                                        | [MONTH] At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.
