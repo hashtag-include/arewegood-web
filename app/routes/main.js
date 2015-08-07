@@ -66,6 +66,11 @@ module.exports = function(passport) {
                     error: {}
                 });
             } else {
+                repository.logs = [
+                    { 'type': 'error', 'data': '[DAY] At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.', 'createdAt': '08/07/15 08:23:54' },
+                    { 'type': 'error', 'data': '[WEEK] At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.', 'createdAt': '08/04/15 01:14:03' },
+                    { 'type': 'error', 'data': '[MONTH] At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique.', 'createdAt': '08/01/15 13:52:19' }
+                ];
                 // render the page with the injected content
                 res.render('repository', {
                     user: req.user,
